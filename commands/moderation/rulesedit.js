@@ -1,7 +1,7 @@
 // Allows moderators to provide a completely new ruleset.
 const { Command } = require('discord.js-commando');
-const rulesFile = '../../rules.json';
-const rules = require(rulesFile);
+rulesFile = '../../rules.json';
+rules = require(rulesFile);
 const fs = require("fs");
 
 module.exports = class PingCommand extends Command {
@@ -31,7 +31,7 @@ module.exports = class PingCommand extends Command {
 		let oldMessage = await rulesChannel.fetchMessage(oldRulesID);
 
 		rules.ruleSet = newrules;
-		await fs.writeFile(rulesFile, JSON.stringify(rules), (err) => console.error);
+		fs.writeFile(rulesFile, JSON.stringify(rules), (err) => console.error);
 		await oldMessage.edit(newrules);
 		await console.log(`.rulesedit ran by ${msg.author.username}#${msg.author.discriminator}. Check rules.json for the new rules.`);
 		return msg.say(`New rules properly set and saved to \`rules.json\`.`);
