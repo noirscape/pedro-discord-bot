@@ -38,6 +38,7 @@ module.exports = class createRules extends Command {
 		let messageNewText = await messageOldText.content.replace(oldword, newword); // Simple search and replace.
 		messageOldText.edit(messageNewText); // Edit the rules
 
+		console.log(`!approveedit ran by ${msg.author.username}#${msg.author.discriminator} . Approve word changed from ${oldword} to ${newword} .`);
 		return msg.say("Approve word properly edited.");
 	}
 
