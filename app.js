@@ -29,7 +29,7 @@ client.registry
     .registerDefaultTypes()
     .registerGroups([
         ['debug', 'Debug commands'],
-        ['rules', 'Rules list'],
+        //['rules', 'Rules list'],
         ['moderation', 'Mod Tools']
     ])
     .registerDefaultGroups()
@@ -38,7 +38,7 @@ client.registry
 
 client.on('ready', () => {
     console.log('Logged in!');
-    client.user.setGame('still a WIP');
+client.user.setGame('on HEAD');
 });
 
 client.login(config.token);
