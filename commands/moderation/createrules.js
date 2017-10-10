@@ -20,9 +20,9 @@ module.exports = class createRules extends Command {
 	}
 
 	async run(msg){
-		var rulesChannel = await client.channels.get("349286964580712451")
-		channel.bulkDelete(1,false) //Rules should only contain one message anyway, so I'm allowed to be lazy. And if it fails, a manual remove is annoying at worst.
-
+		var rulesChannel = this.client.channels.get("349286964580712451")
+        console.log(rulesChannel);
+        rulesChannel.bulkDelete(1,false) //Rules should only contain one message anyway, so I'm allowed to be lazy. And if it fails, a manual remove is annoying at worst.
 		var rulesList = `Rules
 
 1. Don't be a jerk. Be kind to other people and help them out.
@@ -67,5 +67,6 @@ Moderators:
 @Byokugen Unit_01(edited)
 Permanent invite to this server: http://discord.gg/vqcD33r`; //Note: This is kinda ugly
 		rulesChannel.send(rulesList);
+		return msg.say("Rules succesfully generated!");
 	}
 }
