@@ -1,6 +1,5 @@
 // Just edits the approval command
 const { Command } = require('discord.js-commando');
-const config = require('../../config.json');
 
 module.exports = class createRules extends Command {
 	constructor(client) {
