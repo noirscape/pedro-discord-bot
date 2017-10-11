@@ -14,22 +14,33 @@ LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
 PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific
 	language governing rights and limitations under the RPL.
 */
-// Command that tests if the bot is up and running.
-
+// Rule 8
+const rulenumber = 8;
+const ruleDescription = "The cache updates on Monday, Wednesday & Saturday. Don't ask if it has updated, or for an update. The cache maintainer has a life outside of Freeshop.";
 const {Command} = require("discord.js-commando");
+const Discord = require("discord.js");
 
 module.exports = class PingCommand extends Command {
 	constructor(client) {
 		super(client, {
-			name: "pingpedro",
-			group: "debug",
-			memberName: "pingpedro",
-			description: "Pongs back if the bot works.",
-			examples: ["pingpedro"]
+			name: "r" + rulenumber,
+			group: "rules",
+			memberName: "r" + rulenumber,
+			description: "Prints rule " + rulenumber,
+			examples: ["r" + rulenumber]
 		});
 	}
 
-	run(msg) {
-		return msg.say("Pong! Pedro is here and on duty!");
+	async run(msg) {
+		let ruleEmbed = new Discord.RichEmbed();
+
+		ruleEmbed
+			.setColor("#2e888e")
+			.setTitle("Rule " + rulenumber)
+			.setDescription(ruleDescription)
+			.setFooter("This embed is part of pedro-discordjs-bot. (c) Ev1l0rd 2017", "https://cdn.discordapp.com/emojis/349312608387596299.png");
+
+		await
+		msg.embed(ruleEmbed);
 	}
 };

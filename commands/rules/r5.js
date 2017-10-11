@@ -14,22 +14,35 @@ LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
 PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific
 	language governing rights and limitations under the RPL.
 */
-// Command that tests if the bot is up and running.
-
+// Rule 5
+const rulenumber = 5;
+const ruleDescription = "Don't bring up drama. This falls under rule 1 but I want to be explicit.\n" +
+	"  - This includes importing drama from other servers. Hash it out there or in DMs. \n" +
+	"  - This rule also prohibits questions like \"will freeshop contain malware?\"(freeShop is open source: If you don't trust the code, you can always check it yourself and compile it.)\n";
 const {Command} = require("discord.js-commando");
+const Discord = require("discord.js");
 
 module.exports = class PingCommand extends Command {
 	constructor(client) {
 		super(client, {
-			name: "pingpedro",
-			group: "debug",
-			memberName: "pingpedro",
-			description: "Pongs back if the bot works.",
-			examples: ["pingpedro"]
+			name: "r" + rulenumber,
+			group: "rules",
+			memberName: "r" + rulenumber,
+			description: "Prints rule " + rulenumber,
+			examples: ["r" + rulenumber]
 		});
 	}
 
-	run(msg) {
-		return msg.say("Pong! Pedro is here and on duty!");
+	async run(msg) {
+		let ruleEmbed = new Discord.RichEmbed();
+
+		ruleEmbed
+			.setColor("#2e888e")
+			.setTitle("Rule " + rulenumber)
+			.setDescription(ruleDescription)
+			.setFooter("This embed is part of pedro-discordjs-bot. (c) Ev1l0rd 2017", "https://cdn.discordapp.com/emojis/349312608387596299.png");
+
+		await
+		msg.embed(ruleEmbed);
 	}
 };

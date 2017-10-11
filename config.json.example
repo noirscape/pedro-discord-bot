@@ -1,7 +1,12 @@
 {
-  "token": "", // Your bot token
-  "prefix": "", // Prefix the bot uses.
-  "modID": "", // Normal moderator Role.
-  "adminID": "", // Supervisor/Admin Role.
-  "ownerID": "" // Your ID
+  "token": "",
+  // Your bot token
+  "prefix": "",
+  // Prefix the bot uses.
+  "modID": "",
+  // Normal moderator Role.
+  "adminID": "",
+  // Supervisor/Admin Role.
+  "ownerID": ""
+  // Your ID
 }

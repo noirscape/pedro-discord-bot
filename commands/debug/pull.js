@@ -14,31 +14,34 @@ LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
 PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific
 	language governing rights and limitations under the RPL.
 */
-const {CommandoClient} = require("discord.js-commando");
-const config = require("./config.json");
-const path = require("path");
+// Update the bot !WIP!
+const {Command} = require("discord.js-commando");
 
-const client = new CommandoClient({
-	commandPrefix: ".",
-	unknownCommandResponse: false,
-	owner: "126747960972279808",
-	disableEveryone: true
-});
+module.exports = class PingCommand extends Command {
+	constructor(client) {
+		super(client, {
+			name: "pull",
+			group: "debug",
+			memberName: "pull",
+			description: "Pulls in the latest commit on the current branch. Only Owner can run this.",
+			examples: ["pull"]
+		});
+	}
 
-client.registry
-	.registerDefaultTypes()
-	.registerGroups([
-		["debug", "Debug commands"],
-		["rules", "Rules list"],
-		["moderation", "Mod Tools"]
-	])
-	.registerDefaultGroups()
-	.registerDefaultCommands()
-	.registerCommandsIn(path.join(__dirname, "commands"));
+	hasPermission(msg) {
+		return this.client.isOwner(msg.author);
+	}
 
-client.on("ready", () => {
-	console.log("Logged in!");
-	client.user.setGame("on HEAD");
-});
-
-client.login(config.token);
+	async run(msg) {
+		console.log("Ran .pull");
+		if (msg.channel.type === "dm") {
+			await msg.say("Starting pull...");
+			//Note v implement this nicer v
+			await require("simple-git")().pull("origin","master");
+			// ^ Should be a better way ^
+			return msg.say("Pull complete");
+		} else {
+			return msg.say("You must send this in a DM. If you don't have a DM with the bot yet, type the help command.");
+		}
+	}
+};

@@ -14,31 +14,33 @@ LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
 PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific
 	language governing rights and limitations under the RPL.
 */
-const {CommandoClient} = require("discord.js-commando");
-const config = require("./config.json");
-const path = require("path");
+// Rule 4
+const rulenumber = 4;
+const ruleDescription = "Don't spam.";
+const {Command} = require("discord.js-commando");
+const Discord = require("discord.js");
 
-const client = new CommandoClient({
-	commandPrefix: ".",
-	unknownCommandResponse: false,
-	owner: "126747960972279808",
-	disableEveryone: true
-});
+module.exports = class PingCommand extends Command {
+	constructor(client) {
+		super(client, {
+			name: "r" + rulenumber,
+			group: "rules",
+			memberName: "r" + rulenumber,
+			description: "Prints rule " + rulenumber,
+			examples: ["r" + rulenumber]
+		});
+	}
 
-client.registry
-	.registerDefaultTypes()
-	.registerGroups([
-		["debug", "Debug commands"],
-		["rules", "Rules list"],
-		["moderation", "Mod Tools"]
-	])
-	.registerDefaultGroups()
-	.registerDefaultCommands()
-	.registerCommandsIn(path.join(__dirname, "commands"));
+	async run(msg) {
+		let ruleEmbed = new Discord.RichEmbed();
 
-client.on("ready", () => {
-	console.log("Logged in!");
-	client.user.setGame("on HEAD");
-});
+		ruleEmbed
+			.setColor("#2e888e")
+			.setTitle("Rule " + rulenumber)
+			.setDescription(ruleDescription)
+			.setFooter("This embed is part of pedro-discordjs-bot. (c) Ev1l0rd 2017", "https://cdn.discordapp.com/emojis/349312608387596299.png");
 
-client.login(config.token);
+		await
+		msg.embed(ruleEmbed);
+	}
+};
