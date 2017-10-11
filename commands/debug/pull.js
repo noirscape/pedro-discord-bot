@@ -25,29 +25,23 @@ module.exports = class PingCommand extends Command {
 			memberName: "pull",
 			description: "Pulls in the latest commit on the current branch. Only Owner can run this.",
 			examples: ["pull"]
-		})
+		});
 	}
 
-	hasPermission(message) {
-		if (!messageSendByOwner(message)) {
-			if (isInDm(message)) {
-				return true
-			} else {
-				return "You must send this in a DM. If you don't have a DM with the bot yet, type the help command."
-			}
+	hasPermission(msg) {
+		return this.client.isOwner(msg.author);
+	}
+
+	async run(msg) {
+		console.log("Ran .pull");
+		if (msg.channel.type === "dm") {
+			await msg.say("Starting pull...");
+			//Note v implement this nicer v
+			await require("simple-git")().pull("origin","master");
+			// ^ Should be a better way ^
+			return msg.say("Pull complete");
 		} else {
-			return "You are not the Bot Owner."
+			return msg.say("You must send this in a DM. If you don't have a DM with the bot yet, type the help command.");
 		}
 	}
-
-	//Returns true if command is send in a DM
-	isInDm(message) {
-		if (message.channel.type === "dm") return true
-
-	}
-
-	//Returns true if command is executed by the owner
-	messageSendByOwner(message) {
-		if (this.client.isOwner(msg.author)) return true;
-	}
-}
+};

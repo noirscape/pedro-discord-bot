@@ -29,7 +29,7 @@ module.exports = class createRules extends Command {
 			description: "Creates the rules message and deletes old ones. _Note, that this is a hardcoded message and probably should have setapproval run after it._",
 			examples: ["createrules"],
 			guildOnly: true
-		})
+		});
 	}
 
 	hasPermission(msg) {
@@ -42,7 +42,7 @@ module.exports = class createRules extends Command {
 		await rulesChannel.bulkDelete(2, false); //Rules should only contain one message anyway, so I'm allowed to be lazy. And if it fails, a manual remove is annoying at worst.
 		let rulesList = rules.ruleSet;
 		rulesChannel.send(rulesList);
-		console.log("Owner ran .createrules .")
+		console.log("Owner ran .createrules .");
 		return msg.say("Rules succesfully (re-)generated!");
 	}
 };

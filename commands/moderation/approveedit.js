@@ -40,7 +40,7 @@ module.exports = class createRules extends Command {
 					type: "string"
 				}
 			]
-		})
+		});
 	}
 
 	async run(msg, {oldword, newword}) {

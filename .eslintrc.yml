@@ -18,3 +18,12 @@ rules:
   semi:
     - error
     - always
+  #Disable a couple of things eslint complains about when debugging
+  no-console:
+    - off
+  no-undef:
+    - off
+
+  #And this one i just dont really care enough about for it to error
+  no-unused-vars:
+   - warn

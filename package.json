@@ -18,6 +18,7 @@
     "libsodium-wrappers": "^0.5.4",
     "node-opus": "^0.2.7",
     "opusscript": "0.0.4",
+    "simple-git": "^1.79.0",
     "sqlite": "^2.8.0",
     "uws": "^8.14.1"
   }

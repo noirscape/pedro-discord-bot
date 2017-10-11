@@ -26,10 +26,10 @@ module.exports = class PingCommand extends Command {
 			memberName: "pingpedro",
 			description: "Pongs back if the bot works.",
 			examples: ["pingpedro"]
-		})
+		});
 	}
 
 	run(msg) {
 		return msg.say("Pong! Pedro is here and on duty!");
 	}
-}
+};

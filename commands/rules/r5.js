@@ -30,7 +30,7 @@ module.exports = class PingCommand extends Command {
 			memberName: "r" + rulenumber,
 			description: "Prints rule " + rulenumber,
 			examples: ["r" + rulenumber]
-		})
+		});
 	}
 
 	async run(msg) {
@@ -40,9 +40,9 @@ module.exports = class PingCommand extends Command {
 			.setColor("#2e888e")
 			.setTitle("Rule " + rulenumber)
 			.setDescription(ruleDescription)
-			.setFooter("This embed is part of pedro-discordjs-bot. (c) Ev1l0rd 2017", "https://cdn.discordapp.com/emojis/349312608387596299.png")
+			.setFooter("This embed is part of pedro-discordjs-bot. (c) Ev1l0rd 2017", "https://cdn.discordapp.com/emojis/349312608387596299.png");
 
 		await
-			msg.embed(ruleEmbed)
+		msg.embed(ruleEmbed);
 	}
-}
+};

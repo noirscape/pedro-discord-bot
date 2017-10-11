@@ -38,7 +38,7 @@ module.exports = class PingCommand extends Command {
 					type: "string"
 				}
 			]
-		})
+		});
 	}
 
 	async run(msg, {newrules}) {
@@ -47,10 +47,10 @@ module.exports = class PingCommand extends Command {
 		let oldMessage = await rulesChannel.fetchMessage(oldRulesID);
 
 		rules.ruleSet = newrules;
-		fs.writeFile(rulesFile, JSON.stringify(rules), (err) => console.error);
+		fs.writeFile(rulesFile, JSON.stringify(rules));
 		await oldMessage.edit(newrules);
 		await console.log(`.rulesedit ran by ${msg.author.username}#${msg.author.discriminator}. Check rules.json for the new rules.`);
-		return msg.say(`New rules properly set and saved to \`rules.json\`.`);
+		return msg.say("New rules properly set and saved to `rules.json`.");
 
 	}
 };
