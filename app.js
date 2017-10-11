@@ -29,7 +29,7 @@ client.registry
     .registerDefaultTypes()
     .registerGroups([
         ['debug', 'Debug commands'],
-        //['rules', 'Rules list'],
+        ['rules', 'Rules list'],
         ['moderation', 'Mod Tools']
     ])
     .registerDefaultGroups()
