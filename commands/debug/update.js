@@ -14,8 +14,8 @@ LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
 PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific
 	language governing rights and limitations under the RPL.
 */
-
 // Update the bot !WIP!
+const { Command } = require('discord.js-commando');
 
 module.exports = class PingCommand extends Command {
     constructor(client) {
