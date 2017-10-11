@@ -11,7 +11,7 @@ rules:
     - tab
   linebreak-style:
     - error
-    - linux
+    - unix
   quotes:
     - error
     - double
