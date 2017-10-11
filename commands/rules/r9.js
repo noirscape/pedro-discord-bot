@@ -17,30 +17,30 @@ PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific
 // Rule 9
 const rulenumber = 9;
 const ruleDescription = "All decisions by staff are final and not up to public debate. If you have a concern, take it up privately or in #meta.";
-const {Command} = require('discord.js-commando');
+const {Command} = require("discord.js-commando");
 const Discord = require("discord.js");
 
 module.exports = class PingCommand extends Command {
-    constructor(client) {
-        super(client, {
-            name: 'r' + rulenumber,
-            group: 'rules',
-            memberName: 'r' + rulenumber,
-            description: 'Prints rule ' + rulenumber,
-            examples: ['r' + rulenumber]
-        })
-    }
+	constructor(client) {
+		super(client, {
+			name: "r" + rulenumber,
+			group: "rules",
+			memberName: "r" + rulenumber,
+			description: "Prints rule " + rulenumber,
+			examples: ["r" + rulenumber]
+		})
+	}
 
-    async run(msg) {
-        let ruleEmbed = new Discord.RichEmbed();
+	async run(msg) {
+		let ruleEmbed = new Discord.RichEmbed();
 
-        ruleEmbed
-            .setColor("#2e888e")
-            .setTitle("Rule " + rulenumber)
-            .setDescription(ruleDescription)
-            .setFooter("This embed is part of pedro-discordjs-bot. (c) Ev1l0rd 2017", "https://cdn.discordapp.com/emojis/349312608387596299.png")
+		ruleEmbed
+			.setColor("#2e888e")
+			.setTitle("Rule " + rulenumber)
+			.setDescription(ruleDescription)
+			.setFooter("This embed is part of pedro-discordjs-bot. (c) Ev1l0rd 2017", "https://cdn.discordapp.com/emojis/349312608387596299.png")
 
-        await
-        msg.embed(ruleEmbed)
-    }
+		await
+			msg.embed(ruleEmbed)
+	}
 }

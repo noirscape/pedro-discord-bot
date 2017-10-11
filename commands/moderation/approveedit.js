@@ -15,35 +15,35 @@ PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific
 	language governing rights and limitations under the RPL.
 */
 // Just edits the approval command
-const { Command } = require('discord.js-commando');
+const {Command} = require("discord.js-commando");
 
 module.exports = class createRules extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'approveedit',
-			group: 'moderation',
-			memberName: 'approveedit',
-			description: 'Replaces the approve word with a new word.',
-			examples: ['createrules {oldword} {newword}', 'createrules !bonedirector !shadowcloak'],
+			name: "approveedit",
+			group: "moderation",
+			memberName: "approveedit",
+			description: "Replaces the approve word with a new word.",
+			examples: ["createrules {oldword} {newword}", "createrules !bonedirector !shadowcloak"],
 			guildOnly: true,
-			userPermissions: ['ADMINISTRATOR'],
+			userPermissions: ["ADMINISTRATOR"],
 
 			args: [
 				{
-					key: 'oldword',
+					key: "oldword",
 					prompt: "What is the CURRENT approve word?",
-					type: 'string'
+					type: "string"
 				},
 				{
-					key: 'newword',
+					key: "newword",
 					prompt: "What would you like the new approve word to be?",
-					type: 'string'
+					type: "string"
 				}
 			]
 		})
 	}
 
-	async run(msg, { oldword, newword }){
+	async run(msg, {oldword, newword}) {
 		//Get the #rules channel by ID
 		let rulesChannel = await this.client.channels.get("349286964580712451");
 		//Get the old rules message

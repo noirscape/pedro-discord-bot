@@ -17,31 +17,31 @@ PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific
 // Rule 1
 const rulenumber = 1;
 const ruleDescription = "Don't be a jerk. Be kind to other people and help them out.\n" +
-    "  - This rule is also talking about messing with Paul because of the unbanmii situation \n";
-const {Command} = require('discord.js-commando');
+	"  - This rule is also talking about messing with Paul because of the unbanmii situation \n";
+const {Command} = require("discord.js-commando");
 const Discord = require("discord.js");
 
 module.exports = class PingCommand extends Command {
-    constructor(client) {
-        super(client, {
-            name: 'r' + rulenumber,
-            group: 'rules',
-            memberName: 'r' + rulenumber,
-            description: 'Prints rule ' + rulenumber,
-            examples: ['r' + rulenumber]
-        })
-    }
+	constructor(client) {
+		super(client, {
+			name: "r" + rulenumber,
+			group: "rules",
+			memberName: "r" + rulenumber,
+			description: "Prints rule " + rulenumber,
+			examples: ["r" + rulenumber]
+		})
+	}
 
-    async run(msg) {
-        let ruleEmbed = new Discord.RichEmbed();
+	async run(msg) {
+		let ruleEmbed = new Discord.RichEmbed();
 
-        ruleEmbed
-            .setColor("#2e888e")
-            .setTitle("Rule " + rulenumber)
-            .setDescription(ruleDescription)
-            .setFooter("This embed is part of pedro-discordjs-bot. (c) Ev1l0rd 2017", "https://cdn.discordapp.com/emojis/349312608387596299.png")
+		ruleEmbed
+			.setColor("#2e888e")
+			.setTitle("Rule " + rulenumber)
+			.setDescription(ruleDescription)
+			.setFooter("This embed is part of pedro-discordjs-bot. (c) Ev1l0rd 2017", "https://cdn.discordapp.com/emojis/349312608387596299.png")
 
-        await
-        msg.embed(ruleEmbed)
-    }
+		await
+			msg.embed(ruleEmbed)
+	}
 }

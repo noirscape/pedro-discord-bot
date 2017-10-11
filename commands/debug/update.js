@@ -15,39 +15,39 @@ PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific
 	language governing rights and limitations under the RPL.
 */
 // Update the bot !WIP!
-const { Command } = require('discord.js-commando');
+const {Command} = require("discord.js-commando");
 
 module.exports = class PingCommand extends Command {
-    constructor(client) {
-        super(client, {
-            name: 'pull',
-            group: 'debug',
-            memberName: 'pull',
-            description: 'Pulls in the latest commit on the current branch. Only Owner can run this.',
-            examples: ['pull']
-        })
-    }
+	constructor(client) {
+		super(client, {
+			name: "pull",
+			group: "debug",
+			memberName: "pull",
+			description: "Pulls in the latest commit on the current branch. Only Owner can run this.",
+			examples: ["pull"]
+		})
+	}
 
-    hasPermission(message) {
-        if (!messageSendByOwner(message)) {
-            if (isInDm(message)) {
-                return true
-            } else {
-                return "You must send this in a DM. If you don't have a DM with the bot yet, type the help command."
-            }
-        } else {
-            return "You are not the Bot Owner."
-        }
-    }
+	hasPermission(message) {
+		if (!messageSendByOwner(message)) {
+			if (isInDm(message)) {
+				return true
+			} else {
+				return "You must send this in a DM. If you don't have a DM with the bot yet, type the help command."
+			}
+		} else {
+			return "You are not the Bot Owner."
+		}
+	}
 
-    //Returns true if command is send in a DM
-    isInDm(message) {
-        if (message.channel.type === 'dm') return true
+	//Returns true if command is send in a DM
+	isInDm(message) {
+		if (message.channel.type === "dm") return true
 
-    }
+	}
 
-    //Returns true if command is executed by the owner
-    messageSendByOwner(message) {
-        if (this.client.isOwner(msg.author)) return true;
-    }
+	//Returns true if command is executed by the owner
+	messageSendByOwner(message) {
+		if (this.client.isOwner(msg.author)) return true;
+	}
 }
