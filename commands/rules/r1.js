@@ -32,9 +32,7 @@ module.exports = class PingCommand extends Command {
         })
     }
 
-    async
-
-    run(msg) {
+    async run(msg) {
         let ruleEmbed = new Discord.RichEmbed();
 
         ruleEmbed
