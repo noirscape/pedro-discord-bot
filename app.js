@@ -38,7 +38,7 @@ client.registry
 
 client.on("ready", () => {
 	console.log("Logged in!");
-	client.user.setGame("on HEAD");
+	client.user.setGame("on 1.2");
 });
 
 client.login(config.token);
