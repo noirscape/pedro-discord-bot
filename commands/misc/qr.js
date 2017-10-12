@@ -37,7 +37,6 @@ module.exports = class qrCommand extends Command {
 			.setTimestamp()
 			.setFooter("This embed is part of pedro-discordjs-bot. (c) Ev1l0rd 2017", "https://cdn.discordapp.com/emojis/349312608387596299.png");
 
-		await
-			msg.embed(qr);
+		await msg.embed(qr);
 	}
 };

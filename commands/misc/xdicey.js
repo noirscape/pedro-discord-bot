@@ -40,8 +40,8 @@ module.exports = class xdicey extends Command {
 					type: "integer"
 				}
 			]
-		})
-	};
+		});
+	}
 
 	async run(msg, {amountOfRolls, amountOfSides}) {
 		let thrownDice = await throwDice(amountOfRolls, amountOfSides);
