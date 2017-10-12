@@ -19,7 +19,7 @@ const config = require("./config.json");
 const path = require("path");
 
 const client = new CommandoClient({
-	commandPrefix: ".",
+	commandPrefix: config.prefix,
 	unknownCommandResponse: false,
 	owner: "126747960972279808",
 	disableEveryone: true
@@ -29,6 +29,7 @@ client.registry
 	.registerDefaultTypes()
 	.registerGroups([
 		["debug", "Debug commands"],
+		["misc", "Miscellaneous"],
 		["rules", "Rules list"],
 		["moderation", "Mod Tools"]
 	])
@@ -38,7 +39,7 @@ client.registry
 
 client.on("ready", () => {
 	console.log("Logged in!");
-	client.user.setGame("on 1.2");
+	client.user.setGame("on 1.3-HEAD");
 });
 
 client.login(config.token);
