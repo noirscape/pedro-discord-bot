@@ -14,32 +14,29 @@ LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
 PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific
 	language governing rights and limitations under the RPL.
 */
-const {CommandoClient} = require("discord.js-commando");
-const config = require("./config.json");
-const path = require("path");
+// Shows a QR code to the latest version of freeShop
+const {Command} = require("discord.js-commando");
+const Discord = require("discord.js");
 
-const client = new CommandoClient({
-	commandPrefix: config.prefix,
-	unknownCommandResponse: false,
-	owner: "126747960972279808",
-	disableEveryone: true
-});
+module.exports = class qrCommand extends Command {
+	constructor(client) {
+		super(client, {
+			name: "qr",
+			group: "misc",
+			memberName: "qr",
+			description: "Show the freeShop QR code",
+			examples: ["qr"]
+		});
+	}
 
-client.registry
-	.registerDefaultTypes()
-	.registerGroups([
-		["debug", "Debug commands"],
-		["misc", "Miscellaneous"],
-		["rules", "Rules list"],
-		["moderation", "Mod Tools"]
-	])
-	.registerDefaultGroups()
-	.registerDefaultCommands()
-	.registerCommandsIn(path.join(__dirname, "commands"));
+	async run(msg) {
+		const qr = new Discord.RichEmbed()
+			.setColor("#2e888e")
+			.setTitle("freeShop QR code")
+			.setImage("https://gbatemp.net/attachments/qr-code-2-png.97734/")
+			.setTimestamp()
+			.setFooter("This embed is part of pedro-discordjs-bot. (c) Ev1l0rd 2017", "https://cdn.discordapp.com/emojis/349312608387596299.png");
 
-client.on("ready", () => {
-	console.log("Logged in!");
-	client.user.setGame("on 1.3-HEAD");
-});
-
-client.login(config.token);
+		await msg.embed(qr);
+	}
+};
