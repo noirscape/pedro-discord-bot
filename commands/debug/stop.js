@@ -14,32 +14,31 @@ LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
 PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific
 	language governing rights and limitations under the RPL.
 */
-const {CommandoClient} = require("discord.js-commando");
-const config = require("./config.json");
-const path = require("path");
+// Stops the bot. Although, given that I run it with systemd, it basically acts as a restart command.
+const {Command} = require("discord.js-commando");
 
-const client = new CommandoClient({
-	commandPrefix: config.prefix,
-	unknownCommandResponse: false,
-	owner: "126747960972279808",
-	disableEveryone: true
-});
+module.exports = class PingCommand extends Command {
+	constructor(client) {
+		super(client, {
+			name: "stop",
+			group: "debug",
+			memberName: "stop",
+			description: "Stops the bot. Can only be done by the owner and in DMs. Works well with pull.",
+			examples: ["stop"]
+		});
+	}
 
-client.registry
-	.registerDefaultTypes()
-	.registerGroups([
-		["debug", "Debug commands"],
-		["misc", "Miscellaneous"],
-		["rules", "Rules list"],
-		["moderation", "Mod Tools"]
-	])
-	.registerDefaultGroups()
-	.registerDefaultCommands()
-	.registerCommandsIn(path.join(__dirname, "commands"));
+	hasPermission(msg) {
+		return this.client.isOwner(msg.author);
+	}
 
-client.on("ready", () => {
-	console.log("Logged in!");
-	client.user.setGame("on 1.3.2");
-});
-
-client.login(config.token);
+	async run(msg) {
+		console.log("Exiting...");
+		if (msg.channel.type === "dm") {
+			await msg.say(":wave:");
+			return process.exit();
+		} else {
+			return msg.say("You must send this in a DM. If you don't have a DM with the bot yet, type the help command.");
+		}
+	}
+};
