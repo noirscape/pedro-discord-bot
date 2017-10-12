@@ -16,7 +16,7 @@ PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific
 */
 // Rule 2
 const rulenumber = 2;
-const ruleDescription = "No piracy. Don't link to wares - this includes the key site and the angel tool.";
+const ruleDescription = "No piracy. Don't link to warez - this includes the key site and the angel tool.";
 const {Command} = require("discord.js-commando");
 const Discord = require("discord.js");
 
