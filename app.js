@@ -39,7 +39,7 @@ client.registry
 
 client.on("ready", () => {
 	console.log("Logged in!");
-	client.user.setGame("on 1.3.3");
+	client.user.setGame("on 1.4-HEAD");
 });
 
 client.login(config.token);
