@@ -54,21 +54,8 @@ module.exports = class xdicey extends Command {
 	async run(msg, {amountOfRolls, amountOfSides}) {
 		//return sanityCheck(amountOfRolls, amountOfSides);
 		let thrownDice = await throwDice(amountOfRolls, amountOfSides);
-		return msg.say(" :game_die: Threw a " + amountOfSides + " sided die " + amountOfRolls + " times. Result: " + thrownDice + "  :game_die:");
 
-		function sanityCheck(amountOfRolls, amountOfSides) {
-			if (amountOfRolls >= 0 && amountOfRolls <= 10000) {
-				if (amountOfSides >= 0 && amountOfSides <= 10000) {
-					return true;
-				} else {
-					msg.say("You either tried to have a dice with more than 10000 sides or you tried to have a negative dice.");
-					return false;
-				}
-			} else {
-				msg.say("You either tried to roll more than 10000 times or you tried to roll a negative amount of times.");
-				return false;
-			}
-		}
+		return msg.say(" :game_die: Threw a " + amountOfSides + " sided die " + amountOfRolls + " times. Result: " + (thrownDice).toLocaleString('en') + "  :game_die:");
 
 		//This function throws an x sided die y amount of times.
 		function throwDice(amountOfRolls, amountOfSides) {
