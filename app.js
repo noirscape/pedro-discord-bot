@@ -46,10 +46,11 @@ client.on("ready", () => {
 
 client.on("message", message => {
 	//Wordfilter code
-	for (var i = 0; i < forbiddenWords.badWords.length; i++) {
-		if(message.content.includes(forbiddenWords.badWords[i])){
+	let naughtyList = forbiddenWords.badWords;
+	for (var i = 0; i < naughtyList.length; i++) {
+		if(message.content.includes(naughtyList[i] && !(message.author.bot))){
 			message.delete();
-
+			//TODO send a DM to the naughty member
 			break;
 		}
 	}
