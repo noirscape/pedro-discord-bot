@@ -16,6 +16,8 @@ PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific
 */
 const {CommandoClient} = require("discord.js-commando");
 const config = require("./config.json");
+const forbiddenWords = require("./forbiddenWords.json");
+
 const path = require("path");
 
 const client = new CommandoClient({
@@ -39,7 +41,18 @@ client.registry
 
 client.on("ready", () => {
 	console.log("Logged in!");
-	client.user.setGame("on 1.3.5");
+	client.user.setGame("on 1.4-HEAD");
+});
+
+client.on("message", message => {
+	//Wordfilter code
+	for (var i = 0; i < forbiddenWords.badWords.length; i++) {
+		if(message.content.includes(forbiddenWords.badWords[i])){
+			message.delete();
+
+			break;
+		}
+	}
 });
 
 client.login(config.token);
