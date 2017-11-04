@@ -20,6 +20,7 @@ const path = require("path");
 const {Enmap} = require("enmap");
 const {EnmapLevel} = require("enmap-level");
 const logChannelConfig = config.logChannel;
+const softbanPersistent = new EnmapLevel({name: "softbanned"});
 
 const client = new CommandoClient({
 	commandPrefix: config.prefix,
@@ -40,8 +41,7 @@ client.registry
 	.registerDefaultCommands()
 	.registerCommandsIn(path.join(__dirname, "commands"));
 
-client.softBannedMembersProvider = new EnmapLevel({name: "softBanned"});
-client.softbanned = new Enmap({provider: softBannedMembersProvider});
+client.softbanned = new Enmap({provider: softbanPersistent});
 
 client.on("ready", () => {
 	console.log("Logged in!");
