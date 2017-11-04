@@ -42,4 +42,8 @@ client.on("ready", () => {
 	client.user.setGame("on 1.3.5");
 });
 
+client.on.("guildMemberAdd", member => {
+
+});
+
 client.login(config.token);
