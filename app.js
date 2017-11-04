@@ -45,21 +45,22 @@ client.softbanned = new Enmap({provider: softbanPersistent});
 
 client.on("ready", () => {
 	console.log("Logged in!");
-	client.user.setGame("on 1.3.5");
+	client.user.setGame("on 1.4");
 });
 
 client.on("guildMemberAdd", member => {
 	let logChannel = client.channels.get(logChannelConfig);
 	softbanCheck();
 
-	async function softbanCheck(){
-	if (client.softbanned.get(member.id) === true) {
-		await member.send("You have been auto-banned from the freeShop Discord. The cause of this may be due to various reasons. Examples of these reasons may include:" +
-			"\n- Dodging a warn by leaving the server." +
-			"\n- Being a sockpuppet of a banned member." +
-			"\n- Any other reason." +
-			"\nIf you desire this ban lifted, please contact the staff of the Discord.");
-		await member.ban("Member was softbanned earlier."); }
+	async function softbanCheck() {
+		if (client.softbanned.get(member.id) === true) {
+			await member.send("You have been auto-banned from the freeShop Discord. The cause of this may be due to various reasons. Examples of these reasons may include:" +
+				"\n- Dodging a warn by leaving the server." +
+				"\n- Being a sockpuppet of a banned member." +
+				"\n- Any other reason." +
+				"\nIf you desire this ban lifted, please contact the staff of the Discord.");
+			await member.ban("Member was softbanned earlier.");
+		}
 		return logChannel.send("🔨 " + member.toString() + "softban enacted.");
 	}
 });
