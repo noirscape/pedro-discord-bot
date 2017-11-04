@@ -60,7 +60,7 @@ client.on("guildMemberAdd", member => {
 				"\n- Any other reason." +
 				"\nIf you desire this ban lifted, please contact the staff of the Discord.");
 			await member.ban("Member was softbanned earlier.");
-			return logChannel.send("🔨 " + member.toString() + "softban enacted.");
+			return logChannel.send("🔨 " + member.toString() + " softban enacted.");
 		}
 	}
 });
