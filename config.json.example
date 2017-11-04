@@ -6,5 +6,9 @@
   //Role IDs
   "modID": "", // Normal moderator Role.
   "adminID": "", // Supervisor/Admin Role.
-  "ownerID": "" // Your ID
+  "ownerID": "", // Your ID
+
+  "offTopicChannel": "", //Offtopic Channel ID
+  "logChannel": "" //Log Channel ID. The various more "traditional" mod actions of Pedro are logged here.
+
 }
