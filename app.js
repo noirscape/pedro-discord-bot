@@ -17,8 +17,8 @@ PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific
 const {CommandoClient} = require("discord.js-commando");
 const config = require("./config.json");
 const path = require("path");
-const {Enmap} = require("enmap");
-const {EnmapLevel} = require("enmap-level");
+const Enmap = require("enmap");
+const EnmapLevel = require("enmap-level");
 const logChannelConfig = config.logChannel;
 const softbanPersistent = new EnmapLevel({name: "softbanned"});
 
@@ -50,16 +50,17 @@ client.on("ready", () => {
 
 client.on("guildMemberAdd", member => {
 	let logChannel = client.channels.get(logChannelConfig);
+	softbanCheck();
 
+	async function softbanCheck(){
 	if (client.softbanned.get(member.id) === true) {
-		member.send("You have been auto-banned from the freeShop Discord. The cause of this may be due to various reasons. Examples of these reasons may include:" +
+		await member.send("You have been auto-banned from the freeShop Discord. The cause of this may be due to various reasons. Examples of these reasons may include:" +
 			"\n- Dodging a warn by leaving the server." +
 			"\n- Being a sockpuppet of a banned member." +
 			"\n- Any other reason." +
 			"\nIf you desire this ban lifted, please contact the staff of the Discord.");
-		member.ban("Member was softbanned earlier.");
-
-		logChannel.send("🔨 " + member.toString() + "softban enacted.");
+		await member.ban("Member was softbanned earlier."); }
+		return logChannel.send("🔨 " + member.toString() + "softban enacted.");
 	}
 });
 

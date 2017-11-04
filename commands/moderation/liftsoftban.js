@@ -52,6 +52,8 @@ module.exports = class createRules extends Command {
 		let softbanTable = this.client.softbanned;
 		await softbanTable.set(userID,false);
 
+		msg.guild.unban(userID);
+
 		let logChannel = this.client.channels.get(logChannelConfig);
 		logChannel.send("⚒ Softbanned lifted from userID: " + userID + " - Softban lifter was " + msg.author.toString());
 
