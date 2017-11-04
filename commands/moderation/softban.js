@@ -38,13 +38,13 @@ module.exports = class createRules extends Command {
 				}
 			]
 		});
-	};
+	}
 
 	hasPermission(msg) {
 		if (msg.member.roles.has(modRole) || msg.member.roles.has(adminRole)){
 			return true;
 		} else {
-			return false
+			return false;
 		}
 	}
 
@@ -55,6 +55,6 @@ module.exports = class createRules extends Command {
 		let logChannel = this.client.channels.get(logChannelConfig);
 		logChannel.send("⚒ Softbanned userID: " + userID + " - Softban issuer was " + msg.author.toString());
 
-		return msg.say("Softb&!")
-	};
+		return msg.say("Softb&!");
+	}
 };

@@ -48,7 +48,7 @@ client.on("ready", () => {
 	client.user.setGame("on 1.3.5");
 });
 
-client.on.("guildMemberAdd", member => {
+client.on("guildMemberAdd", member => {
 	let logChannel = client.channels.get(logChannelConfig);
 
 	if (client.softbanned.get(member.id) === true) {
@@ -59,7 +59,7 @@ client.on.("guildMemberAdd", member => {
 			"\nIf you desire this ban lifted, please contact the staff of the Discord.");
 		member.ban("Member was softbanned earlier.");
 
-		logChannel.send("🔨 " + member.toString() + "softban enacted." );
+		logChannel.send("🔨 " + member.toString() + "softban enacted.");
 	}
 });
 
