@@ -60,3 +60,6 @@ typings/
 
 # Config file - CONTAINS TOKEN!
 config.json
+
+# Data folder for enmaps
+data

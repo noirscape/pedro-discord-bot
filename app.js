@@ -42,6 +42,7 @@ client.registry
 	.registerCommandsIn(path.join(__dirname, "commands"));
 
 client.softbanned = new Enmap({provider: softbanPersistent});
+client.lockedChannels = new Enmap();
 
 client.on("ready", () => {
 	console.log("Logged in!");
