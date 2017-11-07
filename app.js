@@ -21,6 +21,7 @@ const Enmap = require("enmap");
 const EnmapLevel = require("enmap-level");
 const logChannelConfig = config.logChannel;
 const softbanPersistent = new EnmapLevel({name: "softbanned"});
+const badWordPersistent = new EnmapLevel({name: "badWords"});
 
 const client = new CommandoClient({
 	commandPrefix: config.prefix,
@@ -43,6 +44,7 @@ client.registry
 
 client.softbanned = new Enmap({provider: softbanPersistent});
 client.lockedChannels = new Enmap();
+client.badWords = new Enmap({provider: badWordPersistent});
 
 client.on("ready", () => {
 	console.log("Logged in!");
@@ -62,6 +64,25 @@ client.on("guildMemberAdd", member => {
 				"\nIf you desire this ban lifted, please contact the staff of the Discord.");
 			await member.ban("Member was softbanned earlier.");
 			return logChannel.send("🔨 " + member.toString() + " softban enacted.");
+		}
+	}
+});
+
+client.on("message", message => {
+	badWordCheck();
+
+	function badWordCheck() {
+		if (message.channel.type === "text" || !message.author.bot ){
+			if (!client.badWords.get("badList")) {
+				client.badWords.set("badList", []);
+			}
+			let badWords = client.badWords.get("badList");
+			for (let i = 0; i < badWords.length; i++) {
+				if (message.content.includes(badWords[i])) {
+					message.delete();
+					break;
+				}
+			}
 		}
 	}
 });

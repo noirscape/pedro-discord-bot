@@ -16,8 +16,6 @@ PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific
 */
 // Allows moderators to provide a completely new ruleset.
 const {Command} = require("discord.js-commando");
-const forbiddenWords = require("../../forbiddenWords.json");
-const fs = require("fs");
 
 module.exports = class PingCommand extends Command {
 	constructor(client) {
@@ -41,10 +39,14 @@ module.exports = class PingCommand extends Command {
 	};
 
 	async run(msg, { badword }) {
-		forbiddenWords.badWords.push(badword);
-		// Write it to disk
-		await fs.writeFile("./forbiddenWords.json", JSON.stringify(forbiddenWords), (err) => console.error());
-		await msg.say("!");
-		return process.exit();
+		if (!this.client.badWords.get("badList")){
+			await this.client.badWords.set("badList",[]);
+		}
+		let badList = this.client.badWords.get("badList");
+		badList = badList.push(badword);
+
+		await this.client.badWords.set("badList", badList);
+
+		return msg.say("Succesfully added word to blacklist!")
 	}
 };
