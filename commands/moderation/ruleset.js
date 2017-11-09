@@ -16,19 +16,18 @@ PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific
 */
 // Allows moderators to provide a completely new ruleset.
 const {Command} = require("discord.js-commando");
-rulesFile = "../../rules.json";
-rules = require(rulesFile);
-const fs = require("fs");
+const sha1 = require("sha1");
 
 module.exports = class PingCommand extends Command {
 	constructor(client) {
 		super(client, {
-			name: "rulesedit",
+			name: "ruleset",
 			group: "moderation",
-			memberName: "rulesedit",
-			description: "Edits the rules. Only supervisors can use this. Note: do not run this with args.",
-			examples: ["rulesedit"],
+			memberName: "ruleset",
+			description: "Generate a new ruleset. The ruleset in an enmap for revisions. You will be given an ID to pass to ruleupdate. Note that you need to specify the full ruleset.",
+			examples: ["ruleset newrules"],
 			userPermissions: ["ADMINISTRATOR"],
+			aliases: ["rulesedit"],
 			guildOnly: true,
 
 			args: [
@@ -41,16 +40,10 @@ module.exports = class PingCommand extends Command {
 		});
 	}
 
-	async run(msg, {newrules}) {
-		let rulesChannel = await this.client.channels.get("349286964580712451");
-		let oldRulesID = await rulesChannel.lastMessageID; // Again as in createrules.js: There should only ever be one message in the rules channel
-		let oldMessage = await rulesChannel.fetchMessage(oldRulesID);
-
-		rules.ruleSet = newrules;
-		fs.writeFile(rulesFile, JSON.stringify(rules));
-		await oldMessage.edit(newrules);
-		await console.log(`.rulesedit ran by ${msg.author.username}#${msg.author.discriminator}. Check rules.json for the new rules.`);
-		return msg.say("New rules properly set and saved to `rules.json`.");
-
+	async run(msg, { newrules }) {
+		let newRulesHash = await sha1(newrules);
+		await this.client.rules.set(newRulesHash, newrules);
+		await console.log(`.ruleset ran by ${msg.author.username}#${msg.author.discriminator} with hash ${newRulesHash}.`);
+		return msg.say("Your new ruleset has been saved into the enmap. You can now replace the ruleset by running `rulesupdate " + newRulesHash + "`");
 	}
 };

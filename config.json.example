@@ -10,6 +10,6 @@
   "approvedID": "", // Role for approved members. If you dont use an approved member system, just set this to the RoleID for everyone.
 
   "offTopicChannel": "", //Offtopic Channel ID
-  "logChannel": "" //Log Channel ID. The various more "traditional" mod actions of Pedro are logged here.
-
+  "logChannel": "", //Log Channel ID. The various more "traditional" mod actions of Pedro are logged here.
+  "rulesChannel": ""
 }
