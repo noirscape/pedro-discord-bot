@@ -48,7 +48,7 @@ module.exports = class createRules extends Command {
 			}
 		};
 
-		//await rulesChannel.bulkDelete(99999, false); //First we empty the rulesChannel
+		await rulesChannel.bulkDelete(99999, false); //First we empty the rulesChannel
 		await rulesChannel.send(config.prerulesText);
 		await rulesChannel.send(newRules);
 		await rulesChannel.send(config.postrulesText);
