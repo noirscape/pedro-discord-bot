@@ -39,16 +39,21 @@ module.exports = class createRules extends Command {
 		});
 	}
 
-	async run(msg, { rulehash }) {
+	async run(msg, {rulehash}) {
 		let rulesChannel = this.client.channels.get(config.rulesChannel); //Rules channel is obtained by ID
 		let newRules = this.client.rules.get(rulehash);
-		if (newRules === "") {
-			return msg.say("No hash with this ID found.");
-		}
+		await function () {
+			if (newRules === "") {
+				return msg.say("No hash with this ID found.");
+			}
+		};
 
 		//await rulesChannel.bulkDelete(99999, false); //First we empty the rulesChannel
-		rulesChannel.send(newRules); //Then we send the rules from the rules file.
-		console.log("Owner ran .ruleupdate .");
+		await rulesChannel.send(config.prerulesText);
+		await rulesChannel.send(newRules);
+		await rulesChannel.send(config.postrulesText);
+		//Then we send the rules from the rules file.
+		console.log("Owner ran .ruleupdate with hash " + rulehash);
 		return msg.say("Rules succesfully (re-)generated!");
 	}
 };

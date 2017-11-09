@@ -24,7 +24,7 @@ module.exports = class PingCommand extends Command {
 			name: "ruleset",
 			group: "moderation",
 			memberName: "ruleset",
-			description: "Generate a new ruleset. The ruleset in an enmap for revisions. You will be given an ID to pass to ruleupdate. Note that you need to specify the full ruleset.",
+			description: "Generate a new ruleset. The ruleset in an enmap for revisions. You will be given an ID to pass to ruleupdate. Note that you need to specify only the rules portion. The member list/intro text will be read from config.json",
 			examples: ["ruleset newrules"],
 			userPermissions: ["ADMINISTRATOR"],
 			aliases: ["rulesedit"],
