@@ -11,6 +11,7 @@
 
   "offTopicChannel": "", //Offtopic Channel ID
   "logChannel": "", //Log Channel ID. The various more "traditional" mod actions of Pedro are logged here.
-  "rulesChannel": "",
-
+  "rulesChannel": "", // Rules channel ID
+  "prerulesText": "", // What should come before the rules message
+  "postrulesText": "" // What should go after the rules message
 }

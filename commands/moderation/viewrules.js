@@ -40,7 +40,7 @@ module.exports = class createRules extends Command {
 
 	async run(msg, {rulehash}) {
 		if (msg.channel.type === "dm") {
-			return msg.say(this.client.rules.get(rulehash))
+			return msg.say(this.client.rules.get(rulehash));
 		} else {
 			return msg.say("You must send this in a DM. If you don't have a DM with the bot yet, type the help command.");
 		}
