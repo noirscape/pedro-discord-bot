@@ -42,12 +42,6 @@ module.exports = class createRules extends Command {
 	async run(msg, {rulehash}) {
 		let rulesChannel = this.client.channels.get(config.rulesChannel); //Rules channel is obtained by ID
 		let newRules = this.client.rules.get(rulehash);
-		let messagescount = rulesChannel.
-		await function () {
-			if (newRules === "") {
-				return msg.say("No hash with this ID found.");
-			}
-		};
 
 		await rulesChannel.bulkDelete(3, false); //First we empty the rulesChannel
 		await rulesChannel.send(config.prerulesText);
