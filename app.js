@@ -21,6 +21,8 @@ const Enmap = require("enmap");
 const EnmapLevel = require("enmap-level");
 const logChannelConfig = config.logChannel;
 const softbanPersistent = new EnmapLevel({name: "softbanned"});
+const badWordPersistent = new EnmapLevel({name: "badWords"});
+const rulesPersistent = new EnmapLevel({name: "rules"});
 
 const client = new CommandoClient({
 	commandPrefix: config.prefix,
@@ -43,6 +45,8 @@ client.registry
 
 client.softbanned = new Enmap({provider: softbanPersistent});
 client.lockedChannels = new Enmap();
+client.badWords = new Enmap({provider: badWordPersistent});
+client.rules = new Enmap({provider: rulesPersistent});
 
 client.on("ready", () => {
 	console.log("Logged in!");

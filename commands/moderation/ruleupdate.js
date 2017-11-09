@@ -15,34 +15,45 @@ PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific
 	language governing rights and limitations under the RPL.
 */
 //Creates the rules post
-rulesFile = ("../../rules.json");
-rules = require(rulesFile);
-
 const {Command} = require("discord.js-commando");
+const config = require("../../config.json");
 
 module.exports = class createRules extends Command {
 	constructor(client) {
 		super(client, {
-			name: "createrules",
+			name: "ruleupdate",
 			group: "moderation",
-			memberName: "createrules",
-			description: "Creates the rules message and deletes old ones. _Note, that this is a hardcoded message and probably should have setapproval run after it._",
-			examples: ["createrules"],
-			guildOnly: true
+			memberName: "ruleupdate",
+			description: "Updates the rules messages. To do this you need an enmap. Ensure that your ruleset is correct by sending the bot the viewrules command in a DM + your hash.",
+			examples: ["ruleupdate rulehash"],
+			guildOnly: true,
+			aliases: ["createrules"],
+
+			args: [
+				{
+					key: "rulehash",
+					prompt: "Please specify the SHA1-hash you got from ruleset.",
+					type: "string"
+				}
+			]
 		});
 	}
 
-	hasPermission(msg) {
-		if (!this.client.isOwner(msg.author)) return "Only the bot owner can run this command";
-		return true;
-	}
+	async run(msg, {rulehash}) {
+		let rulesChannel = this.client.channels.get(config.rulesChannel); //Rules channel is obtained by ID
+		let newRules = this.client.rules.get(rulehash);
+		await function () {
+			if (newRules === "") {
+				return msg.say("No hash with this ID found.");
+			}
+		};
 
-	async run(msg) {
-		let rulesChannel = this.client.channels.get("349286964580712451");
-		await rulesChannel.bulkDelete(2, false); //Rules should only contain one message anyway, so I'm allowed to be lazy. And if it fails, a manual remove is annoying at worst.
-		let rulesList = rules.ruleSet;
-		rulesChannel.send(rulesList);
-		console.log("Owner ran .createrules .");
+		//await rulesChannel.bulkDelete(99999, false); //First we empty the rulesChannel
+		await rulesChannel.send(config.prerulesText);
+		await rulesChannel.send(newRules);
+		await rulesChannel.send(config.postrulesText);
+		//Then we send the rules from the rules file.
+		console.log("Owner ran .ruleupdate with hash " + rulehash);
 		return msg.say("Rules succesfully (re-)generated!");
 	}
 };
