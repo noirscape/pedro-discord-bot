@@ -43,7 +43,7 @@ module.exports = class createRules extends Command {
 		let rulesChannel = this.client.channels.get(config.rulesChannel); //Rules channel is obtained by ID
 		let newRules = this.client.rules.get(rulehash);
 
-		await rulesChannel.bulkDelete(3, false); //First we empty the rulesChannel
+		//await rulesChannel.bulkDelete(3, false); //First we empty the rulesChannel
 		await rulesChannel.send(config.prerulesText);
 		await rulesChannel.send(newRules);
 		await rulesChannel.send(config.postrulesText);
