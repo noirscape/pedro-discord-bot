@@ -16,7 +16,7 @@ PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific
 */
 // x dice y - Rolls an y sided dice x times.
 const {Command} = require("discord.js-commando");
-const {xdicey} = require("xdicey");
+const dice = require("xdicey");
 
 module.exports = class xdicey extends Command {
 	constructor(client) {
@@ -54,7 +54,7 @@ module.exports = class xdicey extends Command {
 
 	async run(msg, {amountOfRolls, amountOfSides}) {
 		//return sanityCheck(amountOfRolls, amountOfSides);
-		let thrownDice = await require("xdicey")(amountOfSides, amountOfRolls);
+		let thrownDice = await dice(amountOfSides, amountOfRolls);
 
 		return msg.say(" :game_die: Threw a " + amountOfSides + " sided die " + amountOfRolls + " times. Result: " + (thrownDice).toLocaleString("en") + "  :game_die:");
 	}
