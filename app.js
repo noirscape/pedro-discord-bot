@@ -50,7 +50,7 @@ client.rules = new Enmap({provider: rulesPersistent});
 
 client.on("ready", () => {
 	console.log("Logged in!");
-	client.user.setGame("on 2.0");
+	client.user.setGame("on 2.1");
 });
 
 client.on("guildMemberAdd", member => {
