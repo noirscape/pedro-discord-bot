@@ -16,6 +16,7 @@ PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific
 */
 // x dice y - Rolls an y sided dice x times.
 const {Command} = require("discord.js-commando");
+const {xdicey} = require("xdicey");
 
 module.exports = class xdicey extends Command {
 	constructor(client) {
@@ -53,31 +54,8 @@ module.exports = class xdicey extends Command {
 
 	async run(msg, {amountOfRolls, amountOfSides}) {
 		//return sanityCheck(amountOfRolls, amountOfSides);
-		let thrownDice = await throwDice(amountOfRolls, amountOfSides);
+		let thrownDice = await require("xdicey")(amountOfSides, amountOfRolls);
 
 		return msg.say(" :game_die: Threw a " + amountOfSides + " sided die " + amountOfRolls + " times. Result: " + (thrownDice).toLocaleString("en") + "  :game_die:");
-
-		//This function throws an x sided die y amount of times.
-		function throwDice(amountOfRolls, amountOfSides) {
-			let totalAmount;
-			let result = [];
-			for (let i = 1; i <= amountOfRolls; i++) {
-				let arrayVal = i - 1;
-				let min = Math.ceil(1);
-				let max = Math.floor(amountOfSides);
-				result[arrayVal] = Math.floor(Math.random() * (max - min + 1)) + min;
-			}
-
-			// Taken from https://stackoverflow.com/a/16751601/4666756
-			totalAmount = result.reduce(add, 0);
-
-			function add(a, b) {
-				return a + b;
-			}
-
-			return totalAmount;
-		}
-
 	}
-}
-;
+};
