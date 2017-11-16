@@ -16,14 +16,14 @@
     "discord.js-commando": "github:gawdl3y/discord.js-commando#11.2",
     "enmap": "^0.4.2",
     "enmap-level": "^1.0.0",
-    "eslint": "^4.10.0",
+    "eslint": "^4.11.0",
     "libsodium-wrappers": "^0.5.4",
     "node-opus": "^0.2.7",
     "opusscript": "0.0.4",
     "sha1": "^1.1.1",
-    "simple-git": "^1.80.1",
+    "simple-git": "^1.82.0",
     "sqlite": "^2.8.0",
     "uws": "^8.14.1",
-    "xdicey": "^1.0.1"
+    "xdicey": "^2.0.0"
   }
 }

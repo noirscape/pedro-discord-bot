@@ -54,7 +54,7 @@ module.exports = class xdicey extends Command {
 
 	async run(msg, {amountOfRolls, amountOfSides}) {
 		//return sanityCheck(amountOfRolls, amountOfSides);
-		let thrownDice = await dice(amountOfSides, amountOfRolls);
+		let thrownDice = await dice(amountOfSides, amountOfRolls).total;
 
 		return msg.say(" :game_die: Threw a " + amountOfSides + " sided die " + amountOfRolls + " times. Result: " + (thrownDice).toLocaleString("en") + "  :game_die:");
 	}
