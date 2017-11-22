@@ -54,7 +54,7 @@ client.badWords = new Enmap({provider: badWordPersistent});
 client.rules = new Enmap({provider: rulesPersistent});
 
 // simple-git to obtain the current commit the bot is on for now playing
-git('.').raw(
+git(".").raw(
 	[
 		"rev-parse",
 		"--short",
