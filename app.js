@@ -1,19 +1,23 @@
 /*
-pedro-discordjs-bot (c) 2017 Valentijn "Ev1l0rd"
-A moderation bot for the freeShop server
-Unless explicitly acquired and licensed from Licensor under another
-license, the contents of this file are subject to the Reciprocal Public
-License ("RPL") Version 1.5, or subsequent versions as allowed by the RPL,
-	and You may not copy or use this file in either source code or executable
-form, except in compliance with the terms and conditions of the RPL.
+ * pedro-discordjs-bot - A dedicated bot for the freeShop discord.
+ * Copyright (C) 2017 Valentijn "ev1l0rd"
+ *
+ * This file is part of pedro-discordjs-bot.
+ *
+ * pedro-discordjs-bot is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * pedro-discordjs-bot is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with pedro-discordjs-bot.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-	All software distributed under the RPL is provided strictly on an "AS
-IS" basis, WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND
-LICENSOR HEREBY DISCLAIMS ALL SUCH WARRANTIES, INCLUDING WITHOUT
-LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
-PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific
-	language governing rights and limitations under the RPL.
-*/
 const {CommandoClient} = require("discord.js-commando");
 const config = require("./config.json");
 const path = require("path");

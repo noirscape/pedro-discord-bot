@@ -7,9 +7,9 @@
   "modID": "", // Normal moderator Role.
   "adminID": "", // Supervisor/Admin Role.
   "ownerID": "", // Your ID
-  "approvedID": "", // Role for approved members. If you dont use an approved member system, just set this to the RoleID for everyone.
+  "approvedID": "", // Role for approved members. If you don't use an approved member system, just set this to the RoleID for everyone.
 
-  "offTopicChannel": "", //Offtopic Channel ID
+  "offTopicChannel": "", //Off-topic Channel ID
   "logChannel": "", //Log Channel ID. The various more "traditional" mod actions of Pedro are logged here.
   "rulesChannel": "", // Rules channel ID
   "prerulesText": "", // What should come before the rules message

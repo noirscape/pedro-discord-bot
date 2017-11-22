@@ -9,7 +9,7 @@
   },
   "keywords": [],
   "author": "Ev1l0rd",
-  "license": "RPL",
+  "license": "GPL-3.0",
   "dependencies": {
     "bufferutil": "^3.0.3",
     "discord.js": "^11.2.1",
