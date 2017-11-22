@@ -27,6 +27,7 @@ const logChannelConfig = config.logChannel;
 const softbanPersistent = new EnmapLevel({name: "softbanned"});
 const badWordPersistent = new EnmapLevel({name: "badWords"});
 const rulesPersistent = new EnmapLevel({name: "rules"});
+const git = require("simple-git");
 
 const client = new CommandoClient({
 	commandPrefix: config.prefix,
@@ -52,9 +53,19 @@ client.lockedChannels = new Enmap();
 client.badWords = new Enmap({provider: badWordPersistent});
 client.rules = new Enmap({provider: rulesPersistent});
 
+// simple-git to obtain the current commit the bot is on for now playing
+git('.').raw(
+	[
+		"rev-parse",
+		"--short",
+		"HEAD"
+	], (err, result) => {
+		client.currentCommit = result;
+	});
+
 client.on("ready", () => {
 	console.log("Logged in!");
-	client.user.setGame("on 2.1");
+	client.user.setGame("on commit " + client.currentCommit);
 });
 
 client.on("guildMemberAdd", member => {
