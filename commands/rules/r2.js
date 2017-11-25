@@ -20,7 +20,7 @@
 
 // Rule 2
 const rulenumber = 2;
-const ruleDescription = "No piracy. Don't link to wares - this includes the key site, the angel tool and any other tools that permit direct downloading from Nintendo's CDN.\n- We reserve the right to deny support to anyone suspected of using the tool for piracy.\n";
+const ruleDescription = "No piracy. Don't link to warez - this includes the key site, the angel tool and any other tools that permit direct downloading from Nintendo's CDN.\n- We reserve the right to deny support to anyone suspected of using the tool for piracy.\n";
 const {Command} = require("discord.js-commando");
 const Discord = require("discord.js");
 
