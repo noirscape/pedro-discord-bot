@@ -63,3 +63,6 @@ config.json
 
 # Data folder for enmaps
 data
+
+#package-lock.json since it breaks auto updates
+package-lock.json
