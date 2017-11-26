@@ -1,13 +1,11 @@
 import discord
 from discord.ext import commands
 
-class RulesCMDS:
+class Rules:
 	def __init__(self,bot):
 		self.bot = bot
 
-	'''Function to quickly generate a rule
-	
-	'''
+	'''Function to quickly generate a rule'''
 	def rulesEmbed(self, rulenumber, ruledescription):
 		footer_icon = 'https://images-ext-1.discordapp.net/external/_PkFdSwUn0fEDz8-FjOd9AGKcLAkCKOALCaR--l8twI/https/cdn.discordapp.com/emojis/349312608387596299.png'
 		embed = discord.Embed(title="Rule " + rulenumber, description=ruledescription)
@@ -76,6 +74,21 @@ class RulesCMDS:
 		rule10 = self.rulesEmbed("10","No slurs.")
 		await self.bot.say(embed=rule10)
 
+class freeShopMisc:
+	def __init__(self,bot):
+		self.bot = bot
+
+	@commands.command()
+	async def qr(self):
+		'''Shows a QR code for the latest version of freeShop'''
+		footer_icon = 'https://images-ext-1.discordapp.net/external/_PkFdSwUn0fEDz8-FjOd9AGKcLAkCKOALCaR--l8twI/https/cdn.discordapp.com/emojis/349312608387596299.png'
+		qr = discord.Embed(title="freeShop QR code")
+		qr.set_image(url='https://gbatemp.net/attachments/qr-code-2-png.97734')
+		qr.set_footer(text="This embed is part of Pedro. © Ev1l0rd, 2017, GPLv3", icon_url=footer_icon)
+		await self.bot.say(embed=qr)
+
 def setup(bot):
-		bot.add_cog(RulesCMDS(bot))
+		bot.add_cog(Rules(bot))
 		print('Loaded rules cog...')
+		bot.add_cog(freeShopMisc(bot))
+		print('Loaded freeShopMisc cog...')
