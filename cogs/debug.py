@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-class DebugCMDs:
+class Debug:
 	def __init__(self,bot):
 		self.bot = bot
 
@@ -11,4 +11,4 @@ class DebugCMDs:
 		await self.bot.say("Pong!")
 
 def setup(bot):
-	bot.add_cog(DebugCMDs(bot))
+	bot.add_cog(Debug(bot))
