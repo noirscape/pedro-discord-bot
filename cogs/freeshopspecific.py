@@ -5,8 +5,8 @@ class Rules:
 	def __init__(self,bot):
 		self.bot = bot
 
-	'''Function to quickly generate a rule'''
 	def rulesEmbed(self, rulenumber, ruledescription):
+		'''Function to quickly generate a rule'''
 		footer_icon = 'https://images-ext-1.discordapp.net/external/_PkFdSwUn0fEDz8-FjOd9AGKcLAkCKOALCaR--l8twI/https/cdn.discordapp.com/emojis/349312608387596299.png'
 		embed = discord.Embed(title="Rule " + rulenumber, description=ruledescription)
 		embed.set_footer(text="This embed is part of Pedro. © Ev1l0rd, 2017, GPLv3", icon_url=footer_icon)
@@ -88,7 +88,7 @@ class freeShopMisc:
 		await self.bot.say(embed=qr)
 
 def setup(bot):
-		bot.add_cog(Rules(bot))
-		print('Loaded rules cog...')
-		bot.add_cog(freeShopMisc(bot))
-		print('Loaded freeShopMisc cog...')
+	bot.add_cog(Rules(bot))
+	print('Loaded rules cog...')
+	bot.add_cog(freeShopMisc(bot))
+	print('Loaded freeShopMisc cog...')

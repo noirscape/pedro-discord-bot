@@ -17,6 +17,7 @@ async def on_ready():
 	load_cog("cogs.debug")
 	load_cog("cogs.freeshopspecific")
 	load_cog("cogs.misc")
+	load_cog("cogs.moderation")
 	print('------------')
 	print('Logged in as:')
 	print(bot.user.name)
