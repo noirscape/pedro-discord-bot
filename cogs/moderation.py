@@ -8,36 +8,31 @@ class Moderation:
 	def __init__(self,bot):
 		self.bot = bot
 
-	async def on_command_error(self,ctx,error):
-		if hasattr(ctx.commands, 'on_error'):
-			return
-		ignored = (commands.CommandNotFound, commands.UserInputError)
-		error = getattr(error,'original',error)
-		if isinstance(error, ignored):
-			return
-		elif isinstance(error, commands.DisabledCommand):
-			return await self.bot.say(f'{ctx.command} has been disabled.')
-		elif isinstance(error, commands.NoPrivateMessage):
-			try:
-				return await self.bot.say(f'{ctx.command} cannot be used in DMs.')
-			except:
-				pass
-		print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
-		traceback.print_exception(type(error),error,error.__traceback__, file=sys.stderr)
-
 	@commands.has_role("Moderator")
 	@commands.command(pass_context = True, name='kick')
-	async def kickCommand(ctx, self, userName : discord.User):
-		await self.bot.kick(userName)
-		await self.bot.say("Kicked user " + str(userName) + "!")
-		await self.bot.send_message(self.bot.get_channel('376328493732069377'), ":boot: Kicked member {0} - Kicker was {1}".format(userName,ctx.message.author))
+	async def kickCommand(self, ctx, userName : discord.Member):
+		await userName.kick(reason="User was kicked by {0}".format(ctx.author))
+		await ctx.send("Kicked user " + str(userName) + "!")
+		await self.bot.get_channel(config["logChannel"]).send(":boot: Kicked member {0} - Kicker was {1}".format(userName,ctx.author))
+
+	@commands.has_role("Moderator")
+	@commands.command(pass_context = True, name='ban')
+	async def banCommand(self, ctx, userName : discord.Member):
+		await userName.ban(delete_message_days=0,reason="User was banned by {0}".format(ctx.author))
+		await ctx.send("Banned user " + str(userName) + "!")
+		await self.bot.get_channel(config["logChannel"]).send(":hammer: Banned member {0} - Ban issuer was {1}".format(userName,ctx.author))
 
 	@kickCommand.error
-	async def kick_handler(self,error,ctx)
-		'''Handle errors with the kick commands (missing args)'''
+	@banCommand.error
+	async def banError(self,ctx,error):
 		if isinstance(error, commands.MissingRequiredArgument):
-			if error.param == userName:
-				await self.bot.say("Missing username!")
+			await ctx.send("You need to specify a user!")
+		elif isinstance(error, commands.BadArgument):
+			await ctx.send("That's not a user! You need to @ them.")
+		elif isinstance(error, commands.CheckFailure):
+			await ctx.author.send("You do not have permissions to use this command.")
+		else:
+			traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
 def setup(bot):
 	bot.add_cog(Moderation(bot))
