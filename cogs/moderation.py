@@ -22,6 +22,12 @@ class Moderation:
 		await ctx.send("Banned user " + str(userName) + "!")
 		await self.bot.get_channel(config["logChannel"]).send(":hammer: Banned member {0} - Ban issuer was {1}".format(userName,ctx.author))
 
+	@commands.has_role("Administrator")
+	@commands.command(pass_context = True, name='announce')
+	async def announceCommand(self,ctx, *, announcemsg : str):
+		await self.bot.get_channel(config["announceChannel"]).send(announcemsg)
+		await ctx.send("Succesfully announced!")
+
 	@kickCommand.error
 	@banCommand.error
 	async def banError(self,ctx,error):
@@ -30,7 +36,16 @@ class Moderation:
 		elif isinstance(error, commands.BadArgument):
 			await ctx.send("That's not a user! You need to @ them.")
 		elif isinstance(error, commands.CheckFailure):
-			await ctx.author.send("You do not have permissions to use this command.")
+			await ctx.author.send("You do not have permissions to use this command. This command is reserved for the Moderator role.")
+		else:
+			traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+
+	@announceCommand.error
+	async def announceError(self,ctx,error):
+		if isinstance(error, commands.MissingRequiredArgument):
+			await ctx.send("You are missing a message to send!")
+		elif isinstance(error, commands.CheckFailure):
+			await ctx.author.send("You do not have permissions to use this command. This command is reserved for the Administrator role.")
 		else:
 			traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
