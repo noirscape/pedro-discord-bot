@@ -29,7 +29,6 @@ async def on_ready():
     load_cog("cogs.freeshopspecific")
     load_cog("cogs.misc")
     load_cog("cogs.moderation")
-    load_cog("cogs.rules")
     load_cog("cogs.help")
     print('------------')
     print('Logged in as:')
