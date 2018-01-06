@@ -74,7 +74,7 @@ class RulesEmbeds:
     async def r9(self, ctx):
         '''Output rule 9'''
         rule9 = self.rulesEmbed(
-            "9", "All decisions by staff are final and not up to public debate. If you have a concern, take it up privately or in #meta.")
+            "9", "Staff direction is always to be followed no matter what. Staff may override any of these rules as they see fit. If you take issue with a staff members' decision, please take it up in #meta.")
         await ctx.send(embed=rule9)
 
     @commands.command()
