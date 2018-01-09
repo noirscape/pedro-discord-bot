@@ -30,6 +30,8 @@ async def on_ready():
     load_cog("cogs.misc")
     load_cog("cogs.moderation")
     load_cog("cogs.help")
+    load_cog("cogs.animotes.animotes")
+    print('Loaded animotes cog')
     print('------------')
     print('Logged in as:')
     print(bot.user.name)
