@@ -1,0 +1,3 @@
+[submodule "cogs/animotes"]
+	path = cogs/animotes
+	url = https://github.com/ev1l0rd/animotes
