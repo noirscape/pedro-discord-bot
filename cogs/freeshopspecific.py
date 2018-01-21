@@ -93,9 +93,9 @@ class freeShopMisc:
         '''Shows a QR code for the latest version of freeShop'''
         footer_icon = 'https://images-ext-1.discordapp.net/external/_PkFdSwUn0fEDz8-FjOd9AGKcLAkCKOALCaR--l8twI/https/cdn.discordapp.com/emojis/349312608387596299.png'
         qr = discord.Embed(title="freeShop QR code")
-        qr.set_image(url='https://cdn.discordapp.com/attachments/349305009076174849/386928058470236160/qr-code.png')
+        qr.set_image(url='https://cdn.discordapp.com/attachments/349283770689519618/402205981934616597/qr-code.png')
         qr.set_footer(
-            text="This embed is part of Pedro. © Ev1l0rd, 2017, GPLv3", icon_url=footer_icon)
+            text="This embed is part of Pedro. © Ev1l0rd, 2018, GPLv3", icon_url=footer_icon)
         await ctx.send(embed=qr)
 
 
