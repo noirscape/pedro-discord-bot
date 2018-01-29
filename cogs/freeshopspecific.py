@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
+import yaml
 
+config = yaml.safe_load(open("config.yaml"))
 
 class RulesEmbeds:
     def __init__(self, bot):
@@ -97,6 +99,16 @@ class freeShopMisc:
         qr.set_footer(
             text="This embed is part of Pedro. © Ev1l0rd, 2018, GPLv3", icon_url=footer_icon)
         await ctx.send(embed=qr)
+
+
+class freeShopApprovalMirror:
+    def __init__(self, bot):
+        self.bot = bot
+
+    async def on_message(self, message):
+        if message.channel.id == 349287066913472515:
+            webhook = discord.Webhook.from_url(url=config.webhook_url)
+            await webhook.send(content=message.clean_content(), username=str(message.author), avatar_url=message.author.avatar_url)
 
 
 def setup(bot):
