@@ -1,8 +1,25 @@
+#    pedro-discord-bot - A bot for the freeShop discord
+#    Copyright (C) 2017 - Valentijn "ev1l0rd"
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 import discord
 from discord.ext import commands
 import yaml
 
 config = yaml.safe_load(open("config.yaml"))
+
 
 class RulesEmbeds:
     def __init__(self, bot):
@@ -116,3 +133,5 @@ def setup(bot):
     print('Loaded RulesEmbeds cog...')
     bot.add_cog(freeShopMisc(bot))
     print('Loaded freeShopMisc cog...')
+    bot.add_cog(freeShopApprovalMirror(bot))
+    print('Loaded freeShopApprovalMirror cog...')
