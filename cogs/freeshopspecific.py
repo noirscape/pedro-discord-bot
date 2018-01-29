@@ -126,7 +126,7 @@ class freeShopApprovalMirror:
         if message.channel.id == 349287066913472515:
             webhook = await self.bot.get_channel(407563923521273858).webhooks()
             webhook = webhook[0]
-            await webhook.send(content=message.clean_content(), username=str(message.author), avatar_url=message.author.avatar_url)
+            await webhook.send(content=message.clean_content, username=str(message.author), avatar_url=message.author.avatar_url)
 
 
 def setup(bot):
