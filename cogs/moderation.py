@@ -70,10 +70,10 @@ class Moderation:
         A softban differs from a regular ban in that it is used to ban IDs instead of user accounts.
         Reserved for members with the Moderator role.
         '''
-        try:
-            member = ctx.guild.get_member(userName)
+        member = ctx.guild.get_member(userName)
+        if member:
             await ctx.guild.ban(user=member)
-        except Exception as e:
+        else:
             cursor = self.softban_db.cursor
             cursor.execute('SELECT user_id FROM softbans WHERE user_id=?', (userName, ))
             already_softbanned = cursor.fetchone()
