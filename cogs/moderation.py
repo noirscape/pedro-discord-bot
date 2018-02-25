@@ -125,6 +125,7 @@ class Moderation:
         cursor.execute('SELECT user_id FROM softbans WHERE user_id=?', (member.id, ))
         if cursor.fetchone():
             await member.ban(delete_message_days=0, reason="User was softbanned before.")
+            await member.send('You have been banned from freeShop. Please contact the administration if you believe this was in error.')
             await self.bot.get_channel(config["logChannel"]).send(":hammer: Banned member {0} - Member has been softbanned before.".format(member))
         else:
             pass
