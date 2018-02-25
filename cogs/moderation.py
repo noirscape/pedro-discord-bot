@@ -73,7 +73,7 @@ class Moderation:
         member = ctx.guild.get_member(userName)
         if member:
             await ctx.guild.ban(user=member)
-            await self.bot.get_channel(config["logChannel"]).send(":hammer: Banned member {0} - Ban issuer was {1}".format(userName, ctx.author))            
+            await self.bot.get_channel(config["logChannel"]).send(":hammer: Banned member {0} - Ban issuer was {1}".format(userName, ctx.author))
         else:
             cursor = self.softban_db.cursor()
             cursor.execute('SELECT user_id FROM softbans WHERE user_id=?', (userName, ))
@@ -82,7 +82,7 @@ class Moderation:
                 cursor.execute('INSERT INTO softbans(user_id, softbanned) VALUES(?, ?)', (userName, 0))
                 await self.bot.get_channel(config["logChannel"]).send(":hammer: Softbanned member {0} - Ban issuer was {1}".format(userName, ctx.author))
             else:
-                cursor.execute('DELETE FROM softbans WHERE user_id=?', (userName))
+                cursor.execute('DELETE FROM softbans WHERE user_id=?', (userName, ))
                 await self.bot.get_channel(config["logChannel"]).send(":hammer: Lifted softban on member {0} - Lifter was {1}".format(userName, ctx.author))
             self.conn.commit()
 
