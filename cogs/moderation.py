@@ -84,6 +84,7 @@ class Moderation:
             else:
                 cursor.execute('DELETE FROM softbans WHERE user_id=?', (userName))
                 await self.bot.get_channel(config["logChannel"]).send(":hammer: Lifted softban on member {0} - Lifter was {1}".format(userName, ctx.author))
+            self.conn.commit()
 
     @softbanCommand.error
     async def softbanError(self, ctx, error):
