@@ -18,6 +18,7 @@ from discord.ext import commands
 import sys
 import traceback
 import yaml
+import sqlite3
 
 config = yaml.safe_load(open("config.yaml"))
 
@@ -25,6 +26,8 @@ config = yaml.safe_load(open("config.yaml"))
 class Moderation:
     def __init__(self, bot):
         self.bot = bot
+        self.softban_db = sqlite3.connect('softban.sqlite3')
+        create_database(self.softban_db)
 
     @commands.has_role("Moderator")
     @commands.command(pass_context=True, name='kick')
@@ -58,6 +61,41 @@ class Moderation:
         await self.bot.get_channel(config["announceChannel"]).send(announcemsg)
         await ctx.send("Succesfully announced!")
 
+    @commands.has_role("Moderator")
+    @commands.command(name='softban')
+    async def softbanCommand(self, ctx, userName: int):
+        '''
+        Softbans a member.
+        Requires the bot to have the proper permissions. Also requires you to pass a member.
+        A softban differs from a regular ban in that it is used to ban IDs instead of user accounts.
+        Reserved for members with the Moderator role.
+        '''
+        try:
+            member = ctx.guild.get_member(userName)
+            await ctx.guild.ban(user=member)
+        except Exception as e:
+            cursor = self.softban_db.cursor
+            cursor.execute('SELECT user_id FROM softbans WHERE user_id=?', (userName, ))
+            already_softbanned = cursor.fetchone()
+            if not already_softbanned:
+                cursor.execute('INSERT INTO softbans(user_id, softbanned) VALUES(?, ?)', (userName, 0))
+                await self.bot.get_channel(config["logChannel"]).send(":hammer: Softbanned member {0} - Ban issuer was {1}".format(userName, ctx.author))
+            else:
+                cursor.execute('DELETE FROM softbans WHERE user_id=?', (userName))
+                await self.bot.get_channel(config["logChannel"]).send(":hammer: Lifted softban on member {0} - Lifter was {1}".format(userName, ctx.author))
+
+    @softbanCommand.error
+    async def softbanError(self, ctx, error):
+        if isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send("You need to specify a user ID!")
+        elif isinstance(error, commands.BadArgument):
+            await ctx.send("That's not a user ID.")
+        elif isinstance(error, commands.CheckFailure):
+            await ctx.author.send("You do not have permissions to use this command. This command is reserved for the Moderator role.")
+        else:
+            traceback.print_exception(
+                type(error), error, error.__traceback__, file=sys.stderr)
+
     @kickCommand.error
     @banCommand.error
     async def banError(self, ctx, error):
@@ -80,6 +118,23 @@ class Moderation:
         else:
             traceback.print_exception(
                 type(error), error, error.__traceback__, file=sys.stderr)
+
+    async def on_member_join(self, member):
+        cursor = self.softban_db.cursor()
+        cursor.execute('SELECT user_id FROM softbans WHERE user_id=?', (member.id, ))
+        if cursor.fetchone():
+            await member.ban(delete_message_days=0, reason="User was softbanned before.")
+            await self.bot.get_channel(config["logChannel"]).send(":hammer: Banned member {0} - Member has been softbanned before.".format(member))
+        else:
+            pass
+
+def create_database(conn):
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS softbans (
+            user_id integer PRIMARY KEY,
+            softbanned integer
+        )''')
 
 
 def setup(bot):
