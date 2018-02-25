@@ -73,6 +73,7 @@ class Moderation:
         member = ctx.guild.get_member(userName)
         if member:
             await ctx.guild.ban(user=member)
+            await self.bot.get_channel(config["logChannel"]).send(":hammer: Banned member {0} - Ban issuer was {1}".format(userName, ctx.author))            
         else:
             cursor = self.softban_db.cursor
             cursor.execute('SELECT user_id FROM softbans WHERE user_id=?', (userName, ))
