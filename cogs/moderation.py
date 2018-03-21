@@ -131,6 +131,7 @@ class Moderation:
         else:
             pass
 
+
 def create_database(conn):
     cursor = conn.cursor()
     cursor.execute('''
