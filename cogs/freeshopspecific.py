@@ -1,5 +1,5 @@
 #    pedro-discord-bot - A bot for the freeShop discord
-#    Copyright (C) 2017 - Valentijn "ev1l0rd"
+#    Copyright (C) 2018 - Valentijn "ev1l0rd"
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published by
@@ -31,7 +31,7 @@ class RulesEmbeds:
         embed = discord.Embed(title="Rule " + rulenumber,
                               description=ruledescription)
         embed.set_footer(
-            text="This embed is part of Pedro. © Ev1l0rd, 2017, GPLv3", icon_url=footer_icon)
+            text="This embed is part of Pedro. © Ev1l0rd, 2018, GPLv3", icon_url=footer_icon)
         return embed
 
     # Rule 1
@@ -86,7 +86,7 @@ class RulesEmbeds:
     async def r8(self, ctx):
         '''Output rule 8'''
         rule8 = self.rulesEmbed(
-            "8", "The cache updates on Monday, Wednesday & Saturday. Don't ask if it has updated, or for an update. The cache maintainer has a life outside of Freeshop.")
+            "8", "The cache updates on Wednesday. Don't ask if it has updated, or for an update. The cache maintainer has a life outside of Freeshop.")
         await ctx.send(embed=rule8)
 
     @commands.command()
