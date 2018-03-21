@@ -1,5 +1,5 @@
 #    pedro-discord-bot - A bot for the freeShop discord
-#    Copyright (C) 2017 - Valentijn "ev1l0rd"
+#    Copyright (C) 2018 - Valentijn "ev1l0rd"
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published by
