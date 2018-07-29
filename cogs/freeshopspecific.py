@@ -124,7 +124,7 @@ class freeShopApprovalMirror:
 
     async def on_message(self, message):
         if message.channel.id == 473231785216442369:
-            webhook = await self.bot.get_channel(407563923521273858).webhooks()
+            webhook = await self.bot.get_channel(473239689978052608).webhooks()
             webhook = webhook[0]
             await webhook.send(content=message.clean_content, username=str(message.author), avatar_url=message.author.avatar_url)
 
@@ -136,5 +136,3 @@ def setup(bot):
     print('Loaded freeShopMisc cog...')
     bot.add_cog(freeShopApprovalMirror(bot))
     print('Loaded freeShopApprovalMirror cog...')
-    bot.add_cog(Exterminatus(bot))
-    print('Loaded Exterminatus cog...')
