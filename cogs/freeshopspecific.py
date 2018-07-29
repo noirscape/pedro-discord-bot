@@ -118,47 +118,12 @@ class freeShopMisc:
         await ctx.send(embed=qr)
 
 
-class Exterminatus:
-    def __init__(self, bot):
-        self.bot = bot
-        self.prune_role = discord.utils.get(bot.get_guild(349283770689519617).roles, id=349287208387084290)
-
-    @commands.command()
-    @commands.is_owner()
-    async def targeted_prune(self, ctx):
-        '''Bot owner only. Cleans out inactive members with the approved role from the past 30 days.
-
-        Strips the predefined prune role from all members who have it, prunes the member list and regives it to those that remain.'''
-        members_with_role = []
-        for member in ctx.guild.members:
-            if self.prune_role in member.roles:
-                members_with_role.append(member)
-                await member.remove_roles(self.prune_role, reason='Automated removal for pruning.', atomic=True)
-
-        await ctx.guild.prune_members(days=30, reason='Automated prune with approved role.')
-
-        members_pruned = []
-        for member in members_with_role:
-            try:
-                member.add_roles(self.prune_role, reason='Automated readding after pruning')
-            except Exception as e:
-                members_pruned.append(member.display_name)
-
-        members_pruned_pages = commands.Paginator(prefix='', suffix='')
-        members_pruned_pages.add_line('Pruned members:')
-        for member in members_pruned:
-            members_pruned_pages.add_line('- {}'.format(member))
-
-        for page in members_pruned_pages.pages:
-            self.bot.get_channel(config['logChannel']).send(page)
-
-
 class freeShopApprovalMirror:
     def __init__(self, bot):
         self.bot = bot
 
     async def on_message(self, message):
-        if message.channel.id == 349287066913472515:
+        if message.channel.id == 473231785216442369:
             webhook = await self.bot.get_channel(407563923521273858).webhooks()
             webhook = webhook[0]
             await webhook.send(content=message.clean_content, username=str(message.author), avatar_url=message.author.avatar_url)
