@@ -120,7 +120,7 @@ class freeShopMisc:
 class Exterminatus:
     def __init__(self, bot):
         self.bot = bot
-        self.prune_role = discord.utils.get(bot.get_guild(349283770689519617), id=349287208387084290)
+        self.prune_role = discord.utils.get(bot.get_guild(349283770689519617).roles, id=349287208387084290)
 
     @commands.command()
     @commands.is_owner()
