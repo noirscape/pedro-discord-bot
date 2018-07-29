@@ -145,7 +145,7 @@ class Exterminatus:
         
         members_pruned_pages = Paginator(prefix='', suffix='')
         members_pruned_pages.add_line('Pruned members:')
-        for member in members_pruned_pages:
+        for member in members_pruned:
             members_pruned_pages.add_line('- {}'.format(member))
 
         for page in members_pruned_pages.pages:
