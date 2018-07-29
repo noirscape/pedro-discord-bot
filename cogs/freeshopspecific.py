@@ -117,7 +117,40 @@ class freeShopMisc:
             text="This embed is part of Pedro. © Ev1l0rd, 2018, GPLv3", icon_url=footer_icon)
         await ctx.send(embed=qr)
 
+class Exterminatus:
+    def __init__(self, bot):
+        self.bot = bot
+        self.prune_role = bot.get_role(349287208387084290)
 
+    @commands.command()
+    @commands.is_owner()
+    async def targeted_prune(self, ctx):
+        '''Bot owner only. Cleans out inactive members with the approved role from the past 7 days.
+        
+        Strips the predefined prune role from all members who have it, prunes the member list and regives it to those that remain.'''
+        members_with_role = []
+        for member in ctx.guild.members:
+            if self.prune_role in member.roles:
+                members_with_role.append(member)
+                await member.remove_roles(self.prune_role, reason='Automated removal for pruning.', atomic=True)
+
+        await ctx.guild.prune_members(days=7, reason='Automated prune with approved role.')
+
+        members_pruned = []
+        for member in members_with_role:
+            try:
+                member.add_roles(self.prune_role, reason='Automated readding after pruning')
+            except Exception as e:
+                members_pruned.append(member.display_name)
+        
+        members_pruned_pages = Paginator(prefix='', suffix='')
+        members_pruned_pages.add_line('Pruned members:')
+        for member in members_pruned_pages:
+            members_pruned_pages.add_line('- {}'.format(member))
+
+        for page in members_pruned_pages.pages:
+            self.bot.get_channel(config['logChannel']).send(page)
+        
 class freeShopApprovalMirror:
     def __init__(self, bot):
         self.bot = bot
@@ -136,3 +169,5 @@ def setup(bot):
     print('Loaded freeShopMisc cog...')
     bot.add_cog(freeShopApprovalMirror(bot))
     print('Loaded freeShopApprovalMirror cog...')
+    bot.add_cog(Exterminatus(bot))
+    print('Loaded Exterminatus cog...')
