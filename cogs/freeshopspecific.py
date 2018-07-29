@@ -143,7 +143,7 @@ class Exterminatus:
                 member.add_roles(self.prune_role, reason='Automated readding after pruning')
             except Exception as e:
                 members_pruned.append(member.display_name)
-        
+
         members_pruned_pages = commands.Paginator(prefix='', suffix='')
         members_pruned_pages.add_line('Pruned members:')
         for member in members_pruned:
