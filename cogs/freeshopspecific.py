@@ -118,6 +118,23 @@ class freeShopMisc:
         await ctx.send(embed=qr)
 
 
+class SkiddoStopTakingRoles:
+    def __init__(self, bot):
+        self.bot = bot
+        self.dont_take_these_roles = ['Best Yoshi', 'noir', 'train', 'el Color Verde', 'Charizard <3', 'Roadhog', 'Byo\'s Favorite', 'garnet', 'Dingo ate me babby m8', 'Voxel']
+
+    async def on_member_update(self, _, after):
+        if after.id is not 191238543828451329:
+            return
+
+        roles_to_remove = []
+        for role in after.roles:
+            if role.name in self.dont_take_these_roles:
+                roles_to_remove.append(role)
+
+        await after.remove_roles(*roles_to_remove, reason='This is a message to you Skiddo: Stop taking roles meant for one user, it\'s annoying.')
+
+
 class freeShopApprovalMirror:
     def __init__(self, bot):
         self.bot = bot
@@ -136,3 +153,5 @@ def setup(bot):
     print('Loaded freeShopMisc cog...')
     bot.add_cog(freeShopApprovalMirror(bot))
     print('Loaded freeShopApprovalMirror cog...')
+    bot.add_cog(SkiddoStopTakingRoles(bot))
+    print('Loaded SkiddoStopTakingRoles cog...')
