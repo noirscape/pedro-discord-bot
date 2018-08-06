@@ -31,25 +31,31 @@ class Moderation:
 
     @commands.has_role("Moderator")
     @commands.command(pass_context=True, name='kick')
-    async def kickCommand(self, ctx, userName: discord.Member):
+    async def kickCommand(self, ctx, userName: discord.Member, reason=None):
         '''Kicks a member.
         Syntax: [p]kick <@discord.Member>
         Requires the bot to have the proper permissions. Also requires you to pass a member.
         Reserved for members with the Moderator role.'''
-        await userName.kick(reason="User was kicked by {0}".format(ctx.author))
+        if reason is None:
+            reason = "no reason given"
+
+        await userName.kick(reason="User was kicked by {0} - Given reason was {1}.".format(ctx.author, reason))
         await ctx.send("Kicked user " + str(userName) + "!")
-        await self.bot.get_channel(config["logChannel"]).send(":boot: Kicked member {0} - Kicker was {1}".format(userName, ctx.author))
+        await self.bot.get_channel(config["logChannel"]).send(":boot: Kicked member {0} - Kicker was {1}. Given reason was {2}".format(userName, ctx.author, reason))
 
     @commands.has_role("Moderator")
     @commands.command(pass_context=True, name='ban')
-    async def banCommand(self, ctx, userName: discord.Member):
+    async def banCommand(self, ctx, userName: discord.Member, reason=None):
         '''Bans a member.
         Syntax: [p]ban <@discord.Member>
         Requires the bot to have the proper permissions. Also requires you to pass a member.
         Reserved for members with the Moderator role.'''
-        await userName.ban(delete_message_days=0, reason="User was banned by {0}".format(ctx.author))
+        if reason is None:
+            reason = "no reason given"
+
+        await userName.ban(delete_message_days=0, reason="User was banned by {0} - Given reason was {1}.".format(ctx.author, reason))
         await ctx.send("Banned user " + str(userName) + "!")
-        await self.bot.get_channel(config["logChannel"]).send(":hammer: Banned member {0} - Ban issuer was {1}".format(userName, ctx.author))
+        await self.bot.get_channel(config["logChannel"]).send(":hammer: Banned member {0} - Ban issuer was {1}. Given reason was {2}".format(userName, ctx.author, reason))
 
     @commands.has_role("Administrator")
     @commands.command(pass_context=True, name='announce')
@@ -63,27 +69,31 @@ class Moderation:
 
     @commands.has_role("Moderator")
     @commands.command(name='softban')
-    async def softbanCommand(self, ctx, userName: int):
+    async def softbanCommand(self, ctx, userName: int, reason=None):
         '''
         Softbans a member.
         Requires the bot to have the proper permissions. Also requires you to pass a member.
         A softban differs from a regular ban in that it is used to ban IDs instead of user accounts.
         Reserved for members with the Moderator role.
         '''
+        if reason is None:
+            reason = "no reason given"
+
         member = ctx.guild.get_member(userName)
         if member:
-            await ctx.guild.ban(user=member)
-            await self.bot.get_channel(config["logChannel"]).send(":hammer: Banned member {0} - Ban issuer was {1}".format(userName, ctx.author))
+            await userName.ban(delete_message_days=0, reason="User was banned by {0} - Given reason was {1}.".format(ctx.author, reason))
+            await ctx.send("Banned user " + str(userName) + "!")
+            await self.bot.get_channel(config["logChannel"]).send(":hammer: Banned member {0} - Ban issuer was {1}. Given reason was {2}".format(userName, ctx.author, reason))
         else:
             cursor = self.softban_db.cursor()
             cursor.execute('SELECT user_id FROM softbans WHERE user_id=?', (userName, ))
             already_softbanned = cursor.fetchone()
             if not already_softbanned:
                 cursor.execute('INSERT INTO softbans(user_id, softbanned) VALUES(?, ?)', (userName, 0))
-                await self.bot.get_channel(config["logChannel"]).send(":hammer: Softbanned member {0} - Ban issuer was {1}".format(userName, ctx.author))
+                await self.bot.get_channel(config["logChannel"]).send(":hammer: Softbanned member {0} - Ban issuer was {1}. Given reason was {2}".format(userName, ctx.author, reason))
             else:
                 cursor.execute('DELETE FROM softbans WHERE user_id=?', (userName, ))
-                await self.bot.get_channel(config["logChannel"]).send(":hammer: Lifted softban on member {0} - Lifter was {1}".format(userName, ctx.author))
+                await self.bot.get_channel(config["logChannel"]).send(":hammer: Lifted softban on member {0} - Lifter was {1}. Given reason was {2}".format(userName, ctx.author, reason))
             self.conn.commit()
 
     @softbanCommand.error
