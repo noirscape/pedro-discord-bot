@@ -31,7 +31,7 @@ class Moderation:
 
     @commands.has_role("Moderator")
     @commands.command(pass_context=True, name='kick')
-    async def kickCommand(self, ctx, userName: discord.Member, reason=None):
+    async def kickCommand(self, ctx, userName: discord.Member, *, reason=None):
         '''Kicks a member.
         Syntax: [p]kick <@discord.Member>
         Requires the bot to have the proper permissions. Also requires you to pass a member.
@@ -45,7 +45,7 @@ class Moderation:
 
     @commands.has_role("Moderator")
     @commands.command(pass_context=True, name='ban')
-    async def banCommand(self, ctx, userName: discord.Member, reason=None):
+    async def banCommand(self, ctx, userName: discord.Member, *, reason=None):
         '''Bans a member.
         Syntax: [p]ban <@discord.Member>
         Requires the bot to have the proper permissions. Also requires you to pass a member.
@@ -69,7 +69,7 @@ class Moderation:
 
     @commands.has_role("Moderator")
     @commands.command(name='softban')
-    async def softbanCommand(self, ctx, userName: int, reason=None):
+    async def softbanCommand(self, ctx, userName: int, *, reason=None):
         '''
         Softbans a member.
         Requires the bot to have the proper permissions. Also requires you to pass a member.
