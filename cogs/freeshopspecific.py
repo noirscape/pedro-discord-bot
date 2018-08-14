@@ -109,10 +109,10 @@ class freeShopMisc:
 
     @commands.command()
     async def qr(self, ctx):
-        '''Shows a QR code for the latest version of freeShop'''
+        '''There's no need to use this anymore.'''
         footer_icon = 'https://images-ext-1.discordapp.net/external/_PkFdSwUn0fEDz8-FjOd9AGKcLAkCKOALCaR--l8twI/https/cdn.discordapp.com/emojis/349312608387596299.png'
-        qr = discord.Embed(title="freeShop QR code", description="Scan with FBI")
-        qr.set_image(url='https://cdn.discordapp.com/attachments/349283770689519618/415560809981280256/qr-code.png')
+        qr = discord.Embed()
+        qr.set_image(url='https://i.kym-cdn.com/photos/images/original/001/010/395/f5d.png')
         qr.set_footer(
             text="This embed is part of Pedro. © Ev1l0rd, 2018, GPLv3", icon_url=footer_icon)
         await ctx.send(embed=qr)
