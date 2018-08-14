@@ -48,7 +48,7 @@ class Misc:
                                    description="If you were to prune all members right now, you would lose these members:",
                                    color=0x3c6694)
         pruneEmbed.set_footer(
-            text="This embed is part of Pedro. © Ev1l0rd, 2018, GPLv3")
+            text="This embed is part of Pedro. © noirscape, 2018, AGPLv3")
         pruneEmbed.set_thumbnail(
             url="https://pbs.twimg.com/media/DGVJ5QPUAAQmjU8.jpg:orig")
         pruneEmbed.add_field(name="1 day", value=oneDay, inline=False)
