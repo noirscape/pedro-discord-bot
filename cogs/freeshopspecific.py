@@ -31,7 +31,7 @@ class RulesEmbeds:
         embed = discord.Embed(title="Rule " + rulenumber,
                               description=ruledescription)
         embed.set_footer(
-            text="This embed is part of Pedro. © Ev1l0rd, 2018, GPLv3", icon_url=footer_icon)
+            text="This embed is part of Pedro. © noirscape, 2018, AGPLv3", icon_url=footer_icon)
         return embed
 
     # Rule 1
@@ -114,7 +114,7 @@ class freeShopMisc:
         qr = discord.Embed()
         qr.set_image(url='https://i.kym-cdn.com/photos/images/original/001/010/395/f5d.png')
         qr.set_footer(
-            text="This embed is part of Pedro. © Ev1l0rd, 2018, GPLv3", icon_url=footer_icon)
+            text="This embed is part of Pedro. © noirscape, 2018, AGPLv3", icon_url=footer_icon)
         await ctx.send(embed=qr)
 
 
