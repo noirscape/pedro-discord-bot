@@ -121,19 +121,19 @@ class freeShopMisc:
 class SkiddoStopTakingRoles:
     def __init__(self, bot):
         self.bot = bot
-        self.dont_take_these_roles = ['Best Yoshi', 'noir', 'train', 'el Color Verde', 'Charizard <3', 'Roadhog', 'Byo\'s Favorite', 'garnet', 'Dingo ate me babby m8', 'Voxel']
 
-    async def on_member_update(self, _, after):
-        if after.id is not 191238543828451329:
-            return
-
-        roles_to_remove = []
-        for role in after.roles:
-            if role.name in self.dont_take_these_roles:
-                roles_to_remove.append(role)
-
-        await after.remove_roles(*roles_to_remove, reason='This is a message to you Skiddo: Stop taking roles meant for one user, it\'s annoying.')
-
+    @commands.has_role("Moderator")
+    @commands.command(hidden=True)
+    async def clean_skiddo_roles(self, ctx)
+        guild = self.bot.get_guild(349283770689519617)
+        skiddo = guild.get_member(191238543828451329)
+        unremovables = ["Administrator", "Best Skiddo", "Moderator", "Mod Mail", "Fred", "Dyno", "Bepis"]
+        purge = []
+        for role in skiddo.roles:
+            if role.name not in unremovables:
+                purge.append(role)
+        await skiddo.remove_roles(*purge, reason="Cut this crap out. We can't even bloody view your profile anymore.")
+        await ctx.author.send("Removed {} roles".format(len(purge)))
 
 class freeShopApprovalMirror:
     def __init__(self, bot):
