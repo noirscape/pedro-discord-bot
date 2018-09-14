@@ -124,7 +124,7 @@ class SkiddoStopTakingRoles:
 
     @commands.has_role("Moderator")
     @commands.command(hidden=True)
-    async def clean_skiddo_roles(self, ctx)
+    async def clean_skiddo_roles(self, ctx):
         guild = self.bot.get_guild(349283770689519617)
         skiddo = guild.get_member(191238543828451329)
         unremovables = ["Administrator", "Best Skiddo", "Moderator", "Mod Mail", "Fred", "Dyno", "Bepis"]
