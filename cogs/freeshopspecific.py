@@ -122,18 +122,36 @@ class SkiddoStopTakingRoles:
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.has_role("Moderator")
+    async def on_member_update(self, _, after):
+        if not after.id == 191238543828451329:
+            return
+        msg = await self.clean_skiddo_roles_underlying()
+        user = self.bot.get_user(126747960972279808)
+#        await user.send("Automatically unset roles.")
+#        await user.send(msg)
+
     @commands.command(hidden=True)
     async def clean_skiddo_roles(self, ctx):
+        if ctx.author.id == 126747960972279808 or ctx.author.id == 350312129347452930:
+            msg = await self.clean_skiddo_roles_underlying()
+#            await ctx.send(msg)
+
+    async def clean_skiddo_roles_underlying(self):
         guild = self.bot.get_guild(349283770689519617)
         skiddo = guild.get_member(191238543828451329)
-        unremovables = ["Administrator", "Best Skiddo", "Moderator", "Mod Mail", "Fred", "Dyno", "Bepis"]
-        purge = []
-        for role in skiddo.roles:
-            if role.name not in unremovables:
-                purge.append(role)
-        await skiddo.remove_roles(*purge, reason="Cut this crap out. We can't even bloody view your profile anymore.")
-        await ctx.author.send("Removed {} roles".format(len(purge)))
+        #await skiddo.edit(roles=[r for r in skiddo.roles if r < guild.me.top_role], reason="Cut this crap out. We can't even bloody view your profile anymore.")
+        noremove = ["Best Skiddo", "Mod Mail", "Dyno", "Bepis", "Fred", "Moderator"]
+        toremove = []
+        for r in skiddo.roles:
+            if r.name in noremove or r.id == 349283770689519617:
+               continue
+            toremove.append(r)
+        try:
+          await skiddo.remove_roles(*toremove, reason="Cut this crap out. We can't even bloody view your profile anymore.")
+        except Exception as e:
+          return "Couldn't remove roles.\n" + str(toremove) + "\n" + e
+        finally:
+          return "Removed roles manually.\n" + str(toremove)
 
 class freeShopApprovalMirror:
     def __init__(self, bot):
@@ -145,7 +163,6 @@ class freeShopApprovalMirror:
             webhook = webhook[0]
             await webhook.send(content=message.clean_content, username=str(message.author), avatar_url=message.author.avatar_url)
 
-
 def setup(bot):
     bot.add_cog(RulesEmbeds(bot))
     print('Loaded RulesEmbeds cog...')
@@ -153,5 +170,5 @@ def setup(bot):
     print('Loaded freeShopMisc cog...')
     bot.add_cog(freeShopApprovalMirror(bot))
     print('Loaded freeShopApprovalMirror cog...')
-    bot.add_cog(SkiddoStopTakingRoles(bot))
-    print('Loaded SkiddoStopTakingRoles cog...')
+#    bot.add_cog(SkiddoStopTakingRoles(bot))
+#    print('Loaded SkiddoStopTakingRoles cog...')
