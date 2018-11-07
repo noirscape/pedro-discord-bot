@@ -67,37 +67,8 @@ class Moderation:
         await self.bot.get_channel(config["announceChannel"]).send(announcemsg)
         await ctx.send("Succesfully announced!")
 
-    @commands.has_role("Moderator")
-    @commands.command(name='softban')
-    async def softbanCommand(self, ctx, userName: int, *, reason=None):
-        '''
-        Softbans a member.
-        Requires the bot to have the proper permissions. Also requires you to pass a member.
-        A softban differs from a regular ban in that it is used to ban IDs instead of user accounts.
-        Reserved for members with the Moderator role.
-        '''
-        if reason is None:
-            reason = "no reason given"
-
-        member = ctx.guild.get_member(userName)
-        if member:
-            await userName.ban(delete_message_days=0, reason="User was banned by {0} - Given reason was {1}.".format(ctx.author, reason))
-            await ctx.send("Banned user " + str(userName) + "!")
-            await self.bot.get_channel(config["logChannel"]).send(":hammer: Banned member {0} - Ban issuer was {1}. Given reason was {2}".format(userName, ctx.author, reason))
-        else:
-            cursor = self.softban_db.cursor()
-            cursor.execute('SELECT user_id FROM softbans WHERE user_id=?', (userName, ))
-            already_softbanned = cursor.fetchone()
-            if not already_softbanned:
-                cursor.execute('INSERT INTO softbans(user_id, softbanned) VALUES(?, ?)', (userName, 0))
-                await self.bot.get_channel(config["logChannel"]).send(":hammer: Softbanned member {0} - Ban issuer was {1}. Given reason was {2}".format(userName, ctx.author, reason))
-            else:
-                cursor.execute('DELETE FROM softbans WHERE user_id=?', (userName, ))
-                await self.bot.get_channel(config["logChannel"]).send(":hammer: Lifted softban on member {0} - Lifter was {1}. Given reason was {2}".format(userName, ctx.author, reason))
-            self.conn.commit()
-
     @commands.has_role("Administrator")
-    @commands.command()
+    @commands.command(aliases=["softban"])
     async def hardban(self, ctx, id: int, *, reason=None):
         if reason is None:
             reason = "no reason given"
@@ -107,18 +78,6 @@ class Moderation:
             return await ctx.send("Could not find user.")
         await ctx.guild.ban(limitedUser, delete_message_days=0, reason="User was banned by {0} - Given reason was {1}.".format(ctx.author, reason))
         await self.bot.get_channel(config["logChannel"]).send(":hammer: User {0} (not in this guild) was banned. - Ban issuer was {1}. Given reason was {2}".format(limitedUser, ctx.author, reason))
-
-    @softbanCommand.error
-    async def softbanError(self, ctx, error):
-        if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send("You need to specify a user ID!")
-        elif isinstance(error, commands.BadArgument):
-            await ctx.send("That's not a user ID.")
-        elif isinstance(error, commands.CheckFailure):
-            await ctx.author.send("You do not have permissions to use this command. This command is reserved for the Moderator role.")
-        else:
-            traceback.print_exception(
-                type(error), error, error.__traceback__, file=sys.stderr)
 
     @kickCommand.error
     @banCommand.error
@@ -142,17 +101,6 @@ class Moderation:
         else:
             traceback.print_exception(
                 type(error), error, error.__traceback__, file=sys.stderr)
-
-    async def on_member_join(self, member):
-        cursor = self.softban_db.cursor()
-        cursor.execute('SELECT user_id FROM softbans WHERE user_id=?', (member.id, ))
-        if cursor.fetchone():
-            await member.ban(delete_message_days=0, reason="User was softbanned before.")
-            await member.send('You have been banned from freeShop. Please contact the administration if you believe this was in error.')
-            await self.bot.get_channel(config["logChannel"]).send(":hammer: Banned member {0} - Member has been softbanned before.".format(member))
-        else:
-            pass
-
 
 def create_database(conn):
     cursor = conn.cursor()
