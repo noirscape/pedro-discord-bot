@@ -78,6 +78,7 @@ class Moderation:
             return await ctx.send("Could not find user.")
         await ctx.guild.ban(limitedUser, delete_message_days=0, reason="User was banned by {0} - Given reason was {1}.".format(ctx.author, reason))
         await self.bot.get_channel(config["logChannel"]).send(":hammer: User {0} (not in this guild) was banned. - Ban issuer was {1}. Given reason was {2}".format(limitedUser, ctx.author, reason))
+        await ctx.send("Banned user " + str(limitedUser) + "!")
 
     @kickCommand.error
     @banCommand.error
